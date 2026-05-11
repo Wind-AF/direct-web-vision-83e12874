@@ -167,7 +167,7 @@ const Pessoa = () => {
         <img
           src={logo}
           alt="Bancred"
-          style={{ height: 104, width: "auto", display: "inline-block", objectFit: "contain" }}
+          style={{ height: 90, width: "auto", display: "inline-block", objectFit: "contain" }}
         />
       </header>
 

@@ -11,7 +11,7 @@ const Agendamento = () => {
   return (
     <div style={{ minHeight: "100dvh", background: "#F4F4F7", fontFamily: fontStack, color: "#111827", WebkitFontSmoothing: "antialiased" }}>
       <header style={{ background: "#FFFFFF", borderBottom: "1px solid #E5E7EB", padding: "14px 16px", textAlign: "center" }}>
-        <img src={bancredLogo} alt="Bancred" style={{ height: 104, width: "auto", display: "inline-block", objectFit: "contain" }} />
+        <img src={bancredLogo} alt="Bancred" style={{ height: 90, width: "auto", display: "inline-block", objectFit: "contain" }} />
       </header>
 
       <main style={{ padding: "24px 16px", maxWidth: 480, margin: "0 auto" }}>
