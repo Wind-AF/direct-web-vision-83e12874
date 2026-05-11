@@ -573,7 +573,11 @@ const Aprovado = () => {
                 E por estar de pleno acordo, o EMITENTE assina a presente Cédula de Crédito Bancário em formato eletrônico, em <strong>{dataHoje}</strong>, com pleno reconhecimento de seu valor jurídico e força executiva extrajudicial, nos termos do <strong>art. 28 da Lei nº 10.931/2004</strong>.
               </p>
 
-              {!readEnd && (
+            </div>
+
+            {/* Status do scroll - sempre visível */}
+            <div style={{ padding: "10px 16px 0", background: "#FFFFFF" }}>
+              {!readEnd ? (
                 <div
                   style={{
                     background: "#FFF7ED",
@@ -587,13 +591,11 @@ const Aprovado = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     gap: 8,
-                    marginBottom: 8,
                   }}
                 >
                   <ChevronUp size={16} /> Role o contrato até o final para liberar o aceite
                 </div>
-              )}
-              {readEnd && (
+              ) : (
                 <div
                   style={{
                     background: "#DCFCE7",
@@ -607,7 +609,6 @@ const Aprovado = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     gap: 8,
-                    marginBottom: 8,
                   }}
                 >
                   <Check size={16} /> Você leu o contrato até o fim
