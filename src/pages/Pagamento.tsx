@@ -27,6 +27,8 @@ import cliente4 from "@/assets/cliente-4.jpeg";
 import cliente5 from "@/assets/cliente-5.jpeg";
 import depoimentoMulher from "@/assets/depoimento-mulher.mp4";
 import depoimentoHomem from "@/assets/depoimento-homem.mp4";
+import depoimentoMulherThumb from "@/assets/depoimento-mulher-thumb.jpg";
+import depoimentoHomemThumb from "@/assets/depoimento-homem-thumb.jpg";
 
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
