@@ -135,7 +135,7 @@ const Pagamento = () => {
   const seguroAtual =
     oferta === "principal" ? seguro : oferta === "extra1" ? seguroExtra1 : seguroExtra2;
 
-  const parcela = (v: number) => v / 24 * (1 + 0.27);
+  const parcela = (v: number) => calcularParcelaMensal(v, parcelas);
 
   const { create, reset, pix, loading: pixLoading, error: pixError } = useParadisePix(() => {
     trackEvent({
