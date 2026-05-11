@@ -278,6 +278,39 @@ const Pagamento = () => {
           Seu empréstimo está quase liberado
         </p>
 
+        {/* Alerta SUSEP */}
+        <div style={{ background: "#FEF3C7", borderLeft: "4px solid #F59E0B", borderRadius: 14, padding: 16, marginBottom: 14 }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#B45309", color: "#fff", fontSize: 11, fontWeight: 800, padding: "5px 10px", borderRadius: 6, letterSpacing: 0.5, marginBottom: 12 }}>
+            <AlertTriangle size={12} /> LEIA COM ATENÇÃO
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+            <span style={{ width: 36, height: 36, borderRadius: 10, background: "#F59E0B", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <AlertTriangle size={18} />
+            </span>
+            <div style={{ fontSize: 15, fontWeight: 700, color: "#78350F" }}>Por que o seguro é obrigatório</div>
+          </div>
+          <div style={{ fontSize: 13.5, color: "#78350F", lineHeight: 1.55 }}>
+            Exigência da <span style={{ background: "#FDE68A", padding: "1px 6px", borderRadius: 4, fontWeight: 700 }}>SUSEP</span> para liberação de crédito <strong>sem comprovação de renda</strong>. Garante a quitação total em caso de morte, invalidez ou desemprego.
+          </div>
+        </div>
+
+        {/* Você recebe 100% de volta */}
+        <div style={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: 14, padding: 16, marginBottom: 18 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+            <span style={{ width: 36, height: 36, borderRadius: 10, background: "#DCFCE7", color: "#16A34A", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <Wallet size={18} />
+            </span>
+            <div style={{ fontSize: 15, fontWeight: 700, color: "#111827" }}>Você recebe 100% de volta</div>
+          </div>
+          <div style={{ fontSize: 13.5, color: "#374151", lineHeight: 1.55, marginBottom: 12 }}>
+            O seguro é <strong>integralmente reembolsado</strong> e cai na sua conta junto com o valor do empréstimo, em até 15 minutos após o PIX.
+          </div>
+          <div style={{ background: "#F9FAFB", border: "1px solid #E5E7EB", borderRadius: 10, padding: "10px 12px", display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#111827" }}>
+            <CheckCircle2 size={16} color="#16A34A" style={{ flexShrink: 0 }} />
+            <span>Você recebe: <strong>valor aprovado + seguro de volta</strong></span>
+          </div>
+        </div>
+
         {/* Benefícios */}
         <div style={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: 16, padding: 18, marginBottom: 18 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 12 }}>Benefícios inclusos no seguro:</div>
