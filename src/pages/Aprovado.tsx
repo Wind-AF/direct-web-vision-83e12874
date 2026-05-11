@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import confetti from "canvas-confetti";
 import {
@@ -10,6 +10,9 @@ import {
   FileText,
   Banknote,
   Pencil,
+  X,
+  Lock,
+  Check,
 } from "lucide-react";
 import logo from "@/assets/bancred-logo.png";
 import ConsultorCard from "@/components/ConsultorCard";
