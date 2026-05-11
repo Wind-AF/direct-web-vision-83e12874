@@ -43,6 +43,41 @@ const PixIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 );
 
+const DepoimentoVideo = ({ foto, video, label }: { foto: string; video: string; label: string }) => {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div style={{ position: "relative", borderRadius: 14, overflow: "hidden", aspectRatio: "3/4", background: "#111" }}>
+      {playing ? (
+        <video
+          src={video}
+          controls
+          autoPlay
+          playsInline
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", background: "#000" }}
+        />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setPlaying(true)}
+          style={{ position: "absolute", inset: 0, padding: 0, border: "none", background: "transparent", cursor: "pointer" }}
+        >
+          <img src={foto} alt={label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(255,255,255,0.95)", display: "inline-flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(0,0,0,0.3)" }}>
+              <Play size={22} color="#1C68E3" fill="#1C68E3" style={{ marginLeft: 3 }} />
+            </span>
+          </div>
+          <div style={{ position: "absolute", left: 10, bottom: 8, color: "#fff", fontSize: 12, textAlign: "left" }}>
+            <div style={{ fontWeight: 700 }}>Cliente verificado</div>
+            <div style={{ opacity: 0.9, fontSize: 11 }}>{label}</div>
+          </div>
+        </button>
+      )}
+    </div>
+  );
+};
+
 // Valores fixos do seguro PIX para cada uma das 3 ofertas (independente do empréstimo)
 const SEGURO_PRINCIPAL = 34.23;
 const SEGURO_EXTRA1 = 37.32;
