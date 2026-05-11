@@ -394,6 +394,33 @@ const Pagamento = () => {
           <div style={{ fontSize: 13, color: "#6B7280", marginTop: 2 }}>Pagamento único via PIX</div>
         </div>
 
+        {/* Veja quem já recebeu */}
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, justifyContent: "center", width: "100%", fontSize: 12, fontWeight: 800, color: "#6B7280", letterSpacing: 1, marginBottom: 12 }}>
+          <Star size={14} color="#F59E0B" fill="#F59E0B" /> VEJA QUEM JÁ RECEBEU
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+          {[{ foto: cliente2, label: "Recebeu via PIX" }, { foto: cliente4, label: "Empréstimo aprovado" }].map((v) => (
+            <div key={v.label} style={{ position: "relative", borderRadius: 14, overflow: "hidden", aspectRatio: "3/4", background: "#111" }}>
+              <img src={v.foto} alt={v.label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%)" }} />
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(255,255,255,0.95)", display: "inline-flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(0,0,0,0.3)" }}>
+                  <Play size={22} color="#1C68E3" fill="#1C68E3" style={{ marginLeft: 3 }} />
+                </span>
+              </div>
+              <div style={{ position: "absolute", left: 10, bottom: 8, color: "#fff", fontSize: 12 }}>
+                <div style={{ fontWeight: 700 }}>Cliente verificado</div>
+                <div style={{ opacity: 0.9, fontSize: 11 }}>{v.label}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ textAlign: "center", fontSize: 12, color: "#6B7280", marginBottom: 18 }}>
+          Toque para assistir • Depoimentos reais
+        </div>
+
+        <div style={{ marginBottom: 0 }}>
+
         <button
           type="button"
           onClick={openPix}
