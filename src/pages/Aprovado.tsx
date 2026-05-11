@@ -63,6 +63,12 @@ const Aprovado = () => {
   const [check2, setCheck2] = useState(false);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
+  const [signOpen, setSignOpen] = useState(false);
+  const [hasSignature, setHasSignature] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const drawingRef = useRef(false);
+  const lastPointRef = useRef<{ x: number; y: number } | null>(null);
+
   const canSign = readEnd && check1 && check2;
 
   const openContract = () => {
@@ -82,6 +88,71 @@ const Aprovado = () => {
 
   const handleSign = () => {
     if (!canSign) return;
+    setContractOpen(false);
+    setHasSignature(false);
+    setSignOpen(true);
+  };
+
+  // Configura o canvas (DPI alto) sempre que abre o modal de assinatura
+  useEffect(() => {
+    if (!signOpen) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.scale(dpr, dpr);
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 2.4;
+    ctx.strokeStyle = "#0F172A";
+  }, [signOpen]);
+
+  const getPoint = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current!;
+    const rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  };
+
+  const startDraw = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    (e.target as HTMLCanvasElement).setPointerCapture(e.pointerId);
+    drawingRef.current = true;
+    lastPointRef.current = getPoint(e);
+  };
+
+  const moveDraw = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!drawingRef.current) return;
+    const ctx = canvasRef.current?.getContext("2d");
+    if (!ctx || !lastPointRef.current) return;
+    const p = getPoint(e);
+    ctx.beginPath();
+    ctx.moveTo(lastPointRef.current.x, lastPointRef.current.y);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    lastPointRef.current = p;
+    if (!hasSignature) setHasSignature(true);
+  };
+
+  const endDraw = () => {
+    drawingRef.current = false;
+    lastPointRef.current = null;
+  };
+
+  const clearSignature = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setHasSignature(false);
+  };
+
+  const confirmSignature = () => {
+    if (!hasSignature) return;
     const qs = new URLSearchParams(params);
     navigate(`/endereco?${qs.toString()}`);
   };
