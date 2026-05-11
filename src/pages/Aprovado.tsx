@@ -8,9 +8,8 @@ import {
   Wallet,
   CalendarClock,
   FileText,
-  MapPin,
   Banknote,
-  ArrowRight,
+  Pencil,
 } from "lucide-react";
 import logo from "@/assets/bancred-logo.png";
 import ConsultorCard from "@/components/ConsultorCard";
