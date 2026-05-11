@@ -47,77 +47,47 @@ const Aprovado = () => {
     navigate(`/endereco?${qs.toString()}`);
   };
 
-  // 🎉 Chuva intensa de confetes comemorativos ao entrar na tela de aprovação
+  // 🎉 Comemoração curta e suave ao entrar na tela de aprovação
   useEffect(() => {
     const colors = ["#1C68E3", "#3B82F6", "#60A5FA", "#22C55E", "#16A34A", "#86EFAC"];
-    const duration = 6000;
+    const duration = 1500;
     const end = Date.now() + duration;
 
-    // Explosões iniciais fortes (3 disparos centrais)
+    // Uma única explosão central, leve
     confetti({
-      particleCount: 250,
-      spread: 110,
-      startVelocity: 55,
-      origin: { x: 0.5, y: 0.3 },
+      particleCount: 90,
+      spread: 90,
+      startVelocity: 40,
+      origin: { x: 0.5, y: 0.35 },
       colors,
-      ticks: 350,
-      scalar: 1.1,
-    });
-    confetti({
-      particleCount: 180,
-      spread: 140,
-      startVelocity: 45,
-      origin: { x: 0.2, y: 0.2 },
-      colors,
-      ticks: 350,
-    });
-    confetti({
-      particleCount: 180,
-      spread: 140,
-      startVelocity: 45,
-      origin: { x: 0.8, y: 0.2 },
-      colors,
-      ticks: 350,
+      ticks: 200,
     });
 
-    // Chuva contínua e densa pelas laterais + topo
+    // Chuva curta pelas laterais
     const interval = window.setInterval(() => {
       if (Date.now() > end) {
         window.clearInterval(interval);
         return;
       }
-      // Esquerda
       confetti({
-        particleCount: 25,
+        particleCount: 10,
         angle: 60,
-        spread: 80,
-        startVelocity: 55,
-        origin: { x: 0, y: Math.random() * 0.4 + 0.1 },
+        spread: 60,
+        startVelocity: 40,
+        origin: { x: 0, y: 0.3 },
         colors,
-        ticks: 400,
+        ticks: 200,
       });
-      // Direita
       confetti({
-        particleCount: 25,
+        particleCount: 10,
         angle: 120,
-        spread: 80,
-        startVelocity: 55,
-        origin: { x: 1, y: Math.random() * 0.4 + 0.1 },
+        spread: 60,
+        startVelocity: 40,
+        origin: { x: 1, y: 0.3 },
         colors,
-        ticks: 400,
+        ticks: 200,
       });
-      // Caindo do topo
-      confetti({
-        particleCount: 30,
-        angle: 270,
-        spread: 180,
-        startVelocity: 25,
-        gravity: 0.6,
-        origin: { x: Math.random(), y: 0 },
-        colors,
-        ticks: 400,
-      });
-    }, 150);
+    }, 250);
 
     return () => window.clearInterval(interval);
   }, []);
