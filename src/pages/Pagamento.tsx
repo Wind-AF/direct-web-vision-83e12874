@@ -239,7 +239,7 @@ const Pagamento = () => {
                 {formatBRL(valorEmp)}
               </div>
               <div style={{ fontSize: 11, color: "#6B7280", marginTop: 2 }}>
-                24x de {formatBRL(parcela(valorEmp))}
+                {parcelas}x de {formatBRL(parcela(valorEmp))}
               </div>
             </div>
           </div>
