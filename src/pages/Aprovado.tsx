@@ -614,6 +614,7 @@ const Aprovado = () => {
                   <Check size={16} /> Você leu o contrato até o fim
                 </div>
               )}
+            </div>
 
             {/* Checkboxes + Action */}
             <div
