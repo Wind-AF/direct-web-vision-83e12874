@@ -314,7 +314,7 @@ const Aprovado = () => {
 
         <button
           type="button"
-          onClick={handleContinue}
+          onClick={openContract}
           style={{
             width: "100%",
             padding: "15px 20px",
@@ -340,6 +340,298 @@ const Aprovado = () => {
           <ShieldCheck size={12} /> Contrato com validade jurídica · MP 2.200-2/2001
         </p>
       </main>
+
+      {contractOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(15,23,42,0.55)",
+            zIndex: 1000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 16,
+          }}
+          onClick={() => setContractOpen(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "#FFFFFF",
+              borderRadius: 18,
+              width: "100%",
+              maxWidth: 560,
+              maxHeight: "92dvh",
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              boxShadow: "0 24px 60px rgba(0,0,0,0.25)",
+            }}
+          >
+            {/* Header */}
+            <div
+              style={{
+                background: "#EFF6FF",
+                padding: "14px 16px",
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                borderBottom: "1px solid #DBEAFE",
+              }}
+            >
+              <span
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 10,
+                  background: "#FFFFFF",
+                  color: "#1C68E3",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  border: "1px solid #DBEAFE",
+                }}
+              >
+                <FileText size={18} />
+              </span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#111827" }}>
+                  Cédula de Crédito Bancário
+                </div>
+                <div style={{ fontSize: 12, color: "#6B7280" }}>
+                  Nº {ccbNumber} · Leia até o fim
+                </div>
+              </div>
+              <button
+                type="button"
+                aria-label="Fechar"
+                onClick={() => setContractOpen(false)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  color: "#6B7280",
+                  padding: 4,
+                  display: "inline-flex",
+                }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Scrollable content */}
+            <div
+              ref={scrollRef}
+              onScroll={handleScroll}
+              style={{
+                overflowY: "auto",
+                padding: "18px 18px 8px",
+                fontSize: 13.5,
+                lineHeight: 1.55,
+                color: "#111827",
+                flex: 1,
+              }}
+            >
+              <h2 style={{ fontSize: 15, fontWeight: 800, textAlign: "center", margin: "0 0 14px" }}>
+                CÉDULA DE CRÉDITO BANCÁRIO Nº {ccbNumber}
+              </h2>
+
+              <p style={{ margin: "0 0 10px" }}>
+                <strong>EMITENTE (DEVEDOR):</strong> {nomeUpper}, CPF {cpfRaw || "—"}, doravante denominado(a) <strong>EMITENTE</strong>.
+              </p>
+              <p style={{ margin: "0 0 10px" }}>
+                <strong>CREDOR:</strong> BANCRED SERVIÇOS FINANCEIROS S.A., instituição autorizada a operar pelo Banco Central do Brasil, doravante denominada <strong>CREDOR</strong>.
+              </p>
+              <p style={{ margin: "0 0 14px" }}>
+                Pela presente Cédula de Crédito Bancário, emitida nos termos da <strong>Lei nº 10.931/2004</strong>, da <strong>Resolução CMN nº 4.881/2020</strong> e da <strong>MP nº 2.200-2/2001</strong> (que confere validade jurídica à assinatura eletrônica), o EMITENTE confessa-se devedor da quantia líquida, certa e exigível abaixo discriminada.
+              </p>
+
+              <div
+                style={{
+                  border: "1px solid #E5E7EB",
+                  borderRadius: 12,
+                  padding: "4px 14px",
+                  marginBottom: 14,
+                }}
+              >
+                {[
+                  { label: "Valor do crédito", value: formatBRL(valor) },
+                  { label: "Quantidade de parcelas", value: `${parcelas}x` },
+                  { label: "Valor da parcela", value: formatBRL(parcelaMensal) },
+                  { label: "Total a pagar", value: formatBRL(totalPagar) },
+                  { label: "CET aproximado", value: "1,89% a.m." },
+                  { label: "Carência (1ª parcela)", value: "90 dias" },
+                ].map((row, idx, arr) => (
+                  <div
+                    key={row.label}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "10px 0",
+                      borderBottom: idx < arr.length - 1 ? "1px dashed #E5E7EB" : "none",
+                      fontSize: 13,
+                    }}
+                  >
+                    <span style={{ color: "#6B7280" }}>{row.label}</span>
+                    <span style={{ fontWeight: 700, color: "#111827" }}>{row.value}</span>
+                  </div>
+                ))}
+              </div>
+
+              {[
+                ["Cláusula 1ª — Liberação:", "O CREDOR se compromete a liberar o valor integral via PIX em até 5 (cinco) minutos após a confirmação dos custos operacionais (taxa regulatória da operação) pelo EMITENTE, conforme exigido pela Resolução BCB nº 96/2021."],
+                ["Cláusula 2ª — Carência:", "Concede-se ao EMITENTE prazo de carência de 90 (noventa) dias para o início do pagamento, sem incidência de juros adicionais durante o período."],
+                ["Cláusula 3ª — Registro no SCR:", "Esta operação será registrada no Sistema de Informações de Créditos do Banco Central (SCR/Bacen) em nome do EMITENTE, conforme Resolução CMN nº 4.571/2017."],
+                ["Cláusula 4ª — Inadimplência:", "Em caso de inadimplemento, incidirão juros de mora de 1% (um por cento) ao mês, multa de 2% (dois por cento) sobre o valor devido e correção pelo IPCA, sem prejuízo da inscrição em órgãos de proteção ao crédito."],
+                ["Cláusula 5ª — Veracidade:", "O EMITENTE declara, sob as penas da lei (art. 299 do Código Penal), que todas as informações prestadas são verdadeiras e autoriza o CREDOR a consultar bureaus de crédito (Serasa, SPC, Boa Vista) e o SCR/Bacen."],
+                ["Cláusula 6ª — Assinatura Eletrônica:", "As partes reconhecem a validade da assinatura eletrônica aposta nesta CCB, nos termos da MP 2.200-2/2001 e da Lei nº 14.063/2020, sendo dispensada a assinatura física ou de testemunhas."],
+                ["Cláusula 7ª — Foro:", "Fica eleito o foro da comarca do EMITENTE para dirimir quaisquer questões oriundas desta cédula."],
+              ].map(([titulo, texto]) => (
+                <p key={titulo} style={{ margin: "0 0 12px" }}>
+                  <strong>{titulo}</strong> {texto}
+                </p>
+              ))}
+
+              <p style={{ margin: "14px 0 16px" }}>
+                E por estar de pleno acordo, o EMITENTE assina a presente Cédula de Crédito Bancário em formato eletrônico, em <strong>{dataHoje}</strong>, com pleno reconhecimento de seu valor jurídico e força executiva extrajudicial, nos termos do <strong>art. 28 da Lei nº 10.931/2004</strong>.
+              </p>
+
+              {readEnd && (
+                <div
+                  style={{
+                    background: "#DCFCE7",
+                    color: "#15803D",
+                    border: "1px solid #BBF7D0",
+                    borderRadius: 10,
+                    padding: "10px 12px",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 8,
+                    marginBottom: 8,
+                  }}
+                >
+                  <Check size={16} /> Você leu o contrato até o fim
+                </div>
+              )}
+            </div>
+
+            {/* Checkboxes + Action */}
+            <div
+              style={{
+                borderTop: "1px solid #E5E7EB",
+                padding: "14px 16px 16px",
+                background: "#FFFFFF",
+              }}
+            >
+              {[
+                {
+                  checked: check1,
+                  toggle: () => setCheck1((v) => !v),
+                  title: "Li e concordo com todas as cláusulas",
+                  desc: `Aceito integralmente os termos da CCB nº ${ccbNumber}.`,
+                },
+                {
+                  checked: check2,
+                  toggle: () => setCheck2((v) => !v),
+                  title: "Declaro a veracidade dos dados",
+                  desc: "Autorizo consulta ao SCR/Bacen, Serasa e SPC.",
+                },
+              ].map((item) => (
+                <button
+                  key={item.title}
+                  type="button"
+                  onClick={item.toggle}
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 12,
+                    padding: "12px 14px",
+                    border: `1.5px solid ${item.checked ? "#1C68E3" : "#E5E7EB"}`,
+                    background: item.checked ? "#EFF6FF" : "#FFFFFF",
+                    borderRadius: 12,
+                    marginBottom: 10,
+                    cursor: "pointer",
+                    textAlign: "left",
+                    fontFamily: fontStack,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: 6,
+                      border: `1.5px solid ${item.checked ? "#1C68E3" : "#CBD5E1"}`,
+                      background: item.checked ? "#1C68E3" : "#FFFFFF",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                      marginTop: 1,
+                      color: "#FFFFFF",
+                    }}
+                  >
+                    {item.checked && <Check size={14} strokeWidth={3} />}
+                  </span>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#111827" }}>{item.title}</div>
+                    <div style={{ fontSize: 12, color: "#6B7280", marginTop: 2 }}>{item.desc}</div>
+                  </div>
+                </button>
+              ))}
+
+              <button
+                type="button"
+                onClick={handleSign}
+                disabled={!canSign}
+                style={{
+                  width: "100%",
+                  padding: "14px 20px",
+                  background: canSign ? "#1C68E3" : "#CBD5E1",
+                  color: "#FFFFFF",
+                  border: "none",
+                  borderRadius: 14,
+                  fontSize: 15,
+                  fontWeight: 700,
+                  cursor: canSign ? "pointer" : "not-allowed",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  minHeight: 50,
+                  marginTop: 4,
+                  boxShadow: canSign ? "0 8px 24px rgba(28,104,227,0.28)" : "none",
+                  transition: "background 0.15s ease",
+                }}
+              >
+                <Pencil size={15} /> Avançar para assinatura
+              </button>
+              <p
+                style={{
+                  fontSize: 11,
+                  color: "#9CA3AF",
+                  textAlign: "center",
+                  marginTop: 10,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 6,
+                }}
+              >
+                <Lock size={11} /> Conexão segura · TLS 1.3 · Documento criptografado
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
