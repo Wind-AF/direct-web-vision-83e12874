@@ -13,6 +13,7 @@ import {
   X,
   Lock,
   Check,
+  ChevronUp,
 } from "lucide-react";
 import logo from "@/assets/bancred-logo.png";
 import ConsultorCard from "@/components/ConsultorCard";
@@ -572,6 +573,26 @@ const Aprovado = () => {
                 E por estar de pleno acordo, o EMITENTE assina a presente Cédula de Crédito Bancário em formato eletrônico, em <strong>{dataHoje}</strong>, com pleno reconhecimento de seu valor jurídico e força executiva extrajudicial, nos termos do <strong>art. 28 da Lei nº 10.931/2004</strong>.
               </p>
 
+              {!readEnd && (
+                <div
+                  style={{
+                    background: "#FFF7ED",
+                    color: "#B45309",
+                    border: "1px solid #FED7AA",
+                    borderRadius: 10,
+                    padding: "10px 12px",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 8,
+                    marginBottom: 8,
+                  }}
+                >
+                  <ChevronUp size={16} /> Role o contrato até o final para liberar o aceite
+                </div>
+              )}
               {readEnd && (
                 <div
                   style={{
