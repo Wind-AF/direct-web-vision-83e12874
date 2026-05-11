@@ -85,7 +85,7 @@ const depoimentos = [
     cidade: "Belo Horizonte, MG",
     tempo: "há 5 horas",
     valor: "R$ 12.000,00",
-    texto: "Já tinha tentado em vários bancos e fui negada. Aqui foi aprovado na hora, paguei o seguro pelo PIX e recebi rapidinho. Atendimento da Stellanz foi ótimo.",
+    texto: "Já tinha tentado em vários bancos e fui negada. Aqui foi aprovado na hora, paguei o seguro pelo PIX e recebi rapidinho. Atendimento foi ótimo.",
   },
   {
     foto: cliente3,
@@ -101,7 +101,7 @@ const depoimentos = [
     cidade: "Porto Alegre, RS",
     tempo: "há 1 dia",
     valor: "R$ 15.000,00",
-    texto: "Processo super transparente. O seguro da Stellanz me deixou tranquilo, principalmente pela proteção em caso de desemprego. Liberação foi imediata.",
+    texto: "Processo super transparente. O seguro me deixou tranquilo, principalmente pela proteção em caso de desemprego. Liberação foi imediata.",
   },
   {
     foto: cliente5,
