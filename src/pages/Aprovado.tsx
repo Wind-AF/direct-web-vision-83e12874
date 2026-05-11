@@ -30,7 +30,9 @@ const Aprovado = () => {
   const valor = Number(params.get("valor") || 9000);
   const parcelas = Number(params.get("parcelas") || 36);
   const nomeRaw = params.get("nome") || "";
+  const cpfRaw = (params.get("cpf") || "").replace(/\D/g, "");
   const primeiroNome = (nomeRaw.split(" ")[0] || "Cliente").toUpperCase();
+  const nomeUpper = (nomeRaw || "Cliente").toUpperCase();
 
   // Mesma lógica única (src/lib/loanMath.ts) usada em /oferta e /dashboard
   const parcelaMensal = useMemo(
@@ -38,13 +40,48 @@ const Aprovado = () => {
     [valor, parcelas],
   );
 
+  const totalPagar = parcelaMensal * parcelas;
+
   const primeiraParcela = useMemo(() => {
     const d = new Date();
     d.setDate(d.getDate() + 90);
     return d.toLocaleDateString("pt-BR");
   }, []);
 
-  const handleContinue = () => {
+  const ccbNumber = useMemo(() => {
+    const ano = new Date().getFullYear();
+    const seed = (cpfRaw || nomeRaw || "000000").split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+    const num = ((seed * 7919) % 900000) + 100000;
+    return `CCB-${ano}-${num}`;
+  }, [cpfRaw, nomeRaw]);
+
+  const dataHoje = useMemo(() => new Date().toLocaleDateString("pt-BR"), []);
+
+  const [contractOpen, setContractOpen] = useState(false);
+  const [readEnd, setReadEnd] = useState(false);
+  const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(false);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  const canSign = readEnd && check1 && check2;
+
+  const openContract = () => {
+    setReadEnd(false);
+    setCheck1(false);
+    setCheck2(false);
+    setContractOpen(true);
+  };
+
+  const handleScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 8) {
+      setReadEnd(true);
+    }
+  };
+
+  const handleSign = () => {
+    if (!canSign) return;
     const qs = new URLSearchParams(params);
     navigate(`/endereco?${qs.toString()}`);
   };
