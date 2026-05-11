@@ -703,6 +703,257 @@ const Aprovado = () => {
           </div>
         </div>
       )}
+
+      {signOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(15,23,42,0.55)",
+            zIndex: 1100,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 16,
+          }}
+        >
+          <div
+            style={{
+              background: "#FFFFFF",
+              borderRadius: 18,
+              width: "100%",
+              maxWidth: 520,
+              maxHeight: "92dvh",
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              boxShadow: "0 24px 60px rgba(0,0,0,0.25)",
+            }}
+          >
+            {/* Header */}
+            <div
+              style={{
+                background: "#EFF6FF",
+                padding: "14px 16px",
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                borderBottom: "1px solid #DBEAFE",
+              }}
+            >
+              <span
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 10,
+                  background: "#FFFFFF",
+                  color: "#1C68E3",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  border: "1px solid #DBEAFE",
+                }}
+              >
+                <Pencil size={18} />
+              </span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#111827" }}>
+                  Assinatura Digital
+                </div>
+                <div style={{ fontSize: 12, color: "#6B7280" }}>
+                  Assine com o dedo no campo abaixo
+                </div>
+              </div>
+              <button
+                type="button"
+                aria-label="Fechar"
+                onClick={() => setSignOpen(false)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  color: "#6B7280",
+                  padding: 4,
+                  display: "inline-flex",
+                }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div style={{ padding: "18px 18px 8px", overflowY: "auto", flex: 1 }}>
+              <h3 style={{ fontSize: 15, fontWeight: 700, margin: "0 0 6px", color: "#111827" }}>
+                Assine no campo abaixo
+              </h3>
+              <p style={{ fontSize: 13, color: "#6B7280", margin: "0 0 14px", lineHeight: 1.5 }}>
+                Use o dedo (ou o mouse) para desenhar sua assinatura. Esta assinatura tem validade
+                jurídica conforme a MP 2.200-2/2001.
+              </p>
+
+              <div
+                style={{
+                  position: "relative",
+                  background: "#F8FAFC",
+                  border: "1.5px dashed #CBD5E1",
+                  borderRadius: 12,
+                  height: 200,
+                  overflow: "hidden",
+                  marginBottom: 6,
+                }}
+              >
+                <canvas
+                  ref={canvasRef}
+                  onPointerDown={startDraw}
+                  onPointerMove={moveDraw}
+                  onPointerUp={endDraw}
+                  onPointerLeave={endDraw}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    touchAction: "none",
+                    cursor: "crosshair",
+                    display: "block",
+                  }}
+                />
+                {!hasSignature && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      pointerEvents: "none",
+                      color: "#94A3B8",
+                      fontSize: 14,
+                      gap: 6,
+                    }}
+                  >
+                    <Pencil size={14} /> assine aqui
+                  </div>
+                )}
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  fontSize: 11,
+                  color: "#6B7280",
+                  borderTop: "1px solid #E5E7EB",
+                  paddingTop: 8,
+                  marginBottom: 12,
+                }}
+              >
+                <span style={{ textTransform: "uppercase", letterSpacing: 0.4 }}>{nomeUpper}</span>
+                <span>{dataHoje}</span>
+              </div>
+
+              <button
+                type="button"
+                onClick={clearSignature}
+                style={{
+                  background: "#FFFFFF",
+                  color: "#111827",
+                  border: "1px solid #E5E7EB",
+                  borderRadius: 10,
+                  padding: "8px 14px",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  marginBottom: 14,
+                  fontFamily: fontStack,
+                }}
+              >
+                Limpar assinatura
+              </button>
+
+              <div
+                style={{
+                  background: "#DCFCE7",
+                  border: "1px solid #BBF7D0",
+                  borderRadius: 10,
+                  padding: "10px 12px",
+                  fontSize: 12.5,
+                  color: "#15803D",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 8,
+                  lineHeight: 1.45,
+                }}
+              >
+                <ShieldCheck size={16} style={{ flexShrink: 0, marginTop: 1 }} />
+                <span>
+                  Sua assinatura é criptografada (SHA-256) e armazenada com carimbo de tempo da
+                  ICP-Brasil. Equivalente jurídico à assinatura em papel.
+                </span>
+              </div>
+            </div>
+
+            {/* Footer actions */}
+            <div
+              style={{
+                borderTop: "1px solid #E5E7EB",
+                padding: "14px 16px 16px",
+                background: "#FFFFFF",
+              }}
+            >
+              <button
+                type="button"
+                onClick={confirmSignature}
+                disabled={!hasSignature}
+                style={{
+                  width: "100%",
+                  padding: "14px 20px",
+                  background: hasSignature ? "#1C68E3" : "#CBD5E1",
+                  color: "#FFFFFF",
+                  border: "none",
+                  borderRadius: 14,
+                  fontSize: 15,
+                  fontWeight: 700,
+                  cursor: hasSignature ? "pointer" : "not-allowed",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  minHeight: 50,
+                  boxShadow: hasSignature ? "0 8px 24px rgba(28,104,227,0.28)" : "none",
+                  transition: "background 0.15s ease",
+                  marginBottom: 10,
+                }}
+              >
+                <Check size={16} /> Confirmar e assinar contrato
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSignOpen(false);
+                  setContractOpen(true);
+                }}
+                style={{
+                  width: "100%",
+                  padding: "12px 20px",
+                  background: "#FFFFFF",
+                  color: "#111827",
+                  border: "1px solid #E5E7EB",
+                  borderRadius: 14,
+                  fontSize: 14,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontFamily: fontStack,
+                }}
+              >
+                ← Voltar ao contrato
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
