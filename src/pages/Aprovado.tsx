@@ -8,9 +8,8 @@ import {
   Wallet,
   CalendarClock,
   FileText,
-  MapPin,
   Banknote,
-  ArrowRight,
+  Pencil,
 } from "lucide-react";
 import logo from "@/assets/bancred-logo.png";
 import ConsultorCard from "@/components/ConsultorCard";
@@ -246,8 +245,7 @@ const Aprovado = () => {
           </div>
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
             {[
-              { Icon: FileText, text: "Finalize seu cadastro na plataforma" },
-              { Icon: MapPin, text: "Informe endereço para receber carnê pelos Correios" },
+              { Icon: FileText, text: "Leia e assine o contrato (CCB) digitalmente" },
               { Icon: Banknote, text: "O valor será transferido para você via Pix" },
             ].map(({ Icon, text }) => (
               <li key={text} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
@@ -296,10 +294,10 @@ const Aprovado = () => {
             minHeight: 52,
           }}
         >
-          Finalizar cadastro <ArrowRight size={16} />
+          <Pencil size={16} /> Ler e assinar contrato
         </button>
-        <p style={{ fontSize: 11, color: "#9CA3AF", textAlign: "center", marginTop: 14 }}>
-          Apenas mais alguns passos para receber seu valor.
+        <p style={{ fontSize: 11, color: "#9CA3AF", textAlign: "center", marginTop: 14, display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+          <ShieldCheck size={12} /> Contrato com validade jurídica · MP 2.200-2/2001
         </p>
       </main>
     </div>
