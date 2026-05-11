@@ -93,7 +93,7 @@ const Analisando = () => {
               background: "#E5E7EB",
               borderRadius: 999,
               overflow: "hidden",
-              marginBottom: 24,
+              marginBottom: 10,
             }}
           >
             <div
@@ -105,6 +105,22 @@ const Analisando = () => {
                 transition: "width 0.7s ease",
               }}
             />
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 20,
+              fontSize: 12,
+            }}
+          >
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#6B7280" }}>
+              <ShieldCheck size={14} color="#16A34A" strokeWidth={2.5} />
+              SSL 256-bit · Bacen
+            </span>
+            <span style={{ color: "#1C68E3", fontWeight: 700 }}>{Math.round(progress)}%</span>
           </div>
 
           <ul
