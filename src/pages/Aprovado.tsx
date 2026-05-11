@@ -294,10 +294,10 @@ const Aprovado = () => {
             minHeight: 52,
           }}
         >
-          Finalizar cadastro <ArrowRight size={16} />
+          <Pencil size={16} /> Ler e assinar contrato
         </button>
-        <p style={{ fontSize: 11, color: "#9CA3AF", textAlign: "center", marginTop: 14 }}>
-          Apenas mais alguns passos para receber seu valor.
+        <p style={{ fontSize: 11, color: "#9CA3AF", textAlign: "center", marginTop: 14, display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+          <ShieldCheck size={12} /> Contrato com validade jurídica · MP 2.200-2/2001
         </p>
       </main>
     </div>
