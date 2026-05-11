@@ -27,7 +27,7 @@ const Simulacao = () => {
           paddingTop: "calc(14px + env(safe-area-inset-top))",
         }}
       >
-        <img src={logo} alt="Bancred" style={{ height: 76, width: "auto", display: "inline-block", objectFit: "contain" }} />
+        <img src={logo} alt="Bancred" style={{ height: 104, width: "auto", display: "inline-block", objectFit: "contain" }} />
       </header>
 
       <main style={{ padding: "40px 20px", textAlign: "center", maxWidth: 560, margin: "0 auto" }}>

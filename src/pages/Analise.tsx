@@ -210,7 +210,7 @@ const Analise = () => {
         <img
           src={logo}
           alt="Bancred"
-          style={{ height: 76, width: "auto", display: "inline-block", objectFit: "contain" }}
+          style={{ height: 104, width: "auto", display: "inline-block", objectFit: "contain" }}
         />
       </header>
 
