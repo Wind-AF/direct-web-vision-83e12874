@@ -253,7 +253,7 @@ const Pagamento = () => {
     <div style={{ minHeight: "100dvh", background: "#F4F4F7", fontFamily: fontStack, color: "#111827", paddingBottom: showPix ? 0 : 32 }}>
       {/* Header Bancred */}
       <header style={{ background: "#fff", padding: "18px 16px", textAlign: "center", borderBottom: "1px solid #E5E7EB" }}>
-        <img src={bancredLogo} alt="Bancred" style={{ height: 104, width: "auto", display: "inline-block", objectFit: "contain" }} />
+        <img src={bancredLogo} alt="Bancred" style={{ height: 90, width: "auto", display: "inline-block", objectFit: "contain" }} />
       </header>
 
       {/* Banner Stellanz */}
