@@ -25,6 +25,8 @@ import cliente2 from "@/assets/cliente-2.jpeg";
 import cliente3 from "@/assets/cliente-3.jpeg";
 import cliente4 from "@/assets/cliente-4.jpeg";
 import cliente5 from "@/assets/cliente-5.jpeg";
+import depoimentoMulher from "@/assets/depoimento-mulher.mp4";
+import depoimentoHomem from "@/assets/depoimento-homem.mp4";
 
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
@@ -40,6 +42,41 @@ const PixIcon = ({ size = 20 }: { size?: number }) => (
     </g>
   </svg>
 );
+
+const DepoimentoVideo = ({ foto, video, label }: { foto: string; video: string; label: string }) => {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div style={{ position: "relative", borderRadius: 14, overflow: "hidden", aspectRatio: "3/4", background: "#111" }}>
+      {playing ? (
+        <video
+          src={video}
+          controls
+          autoPlay
+          playsInline
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", background: "#000" }}
+        />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setPlaying(true)}
+          style={{ position: "absolute", inset: 0, padding: 0, border: "none", background: "transparent", cursor: "pointer" }}
+        >
+          <img src={foto} alt={label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(255,255,255,0.95)", display: "inline-flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(0,0,0,0.3)" }}>
+              <Play size={22} color="#1C68E3" fill="#1C68E3" style={{ marginLeft: 3 }} />
+            </span>
+          </div>
+          <div style={{ position: "absolute", left: 10, bottom: 8, color: "#fff", fontSize: 12, textAlign: "left" }}>
+            <div style={{ fontWeight: 700 }}>Cliente verificado</div>
+            <div style={{ opacity: 0.9, fontSize: 11 }}>{label}</div>
+          </div>
+        </button>
+      )}
+    </div>
+  );
+};
 
 // Valores fixos do seguro PIX para cada uma das 3 ofertas (independente do empréstimo)
 const SEGURO_PRINCIPAL = 34.23;
@@ -399,20 +436,11 @@ const Pagamento = () => {
           <Star size={14} color="#F59E0B" fill="#F59E0B" /> VEJA QUEM JÁ RECEBEU
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
-          {[{ foto: cliente2, label: "Recebeu via PIX" }, { foto: cliente4, label: "Empréstimo aprovado" }].map((v) => (
-            <div key={v.label} style={{ position: "relative", borderRadius: 14, overflow: "hidden", aspectRatio: "3/4", background: "#111" }}>
-              <img src={v.foto} alt={v.label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%)" }} />
-              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(255,255,255,0.95)", display: "inline-flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(0,0,0,0.3)" }}>
-                  <Play size={22} color="#1C68E3" fill="#1C68E3" style={{ marginLeft: 3 }} />
-                </span>
-              </div>
-              <div style={{ position: "absolute", left: 10, bottom: 8, color: "#fff", fontSize: 12 }}>
-                <div style={{ fontWeight: 700 }}>Cliente verificado</div>
-                <div style={{ opacity: 0.9, fontSize: 11 }}>{v.label}</div>
-              </div>
-            </div>
+          {[
+            { foto: cliente2, video: depoimentoMulher, label: "Recebeu via PIX" },
+            { foto: cliente4, video: depoimentoHomem, label: "Empréstimo aprovado" },
+          ].map((v) => (
+            <DepoimentoVideo key={v.label} foto={v.foto} video={v.video} label={v.label} />
           ))}
         </div>
         <div style={{ textAlign: "center", fontSize: 12, color: "#6B7280", marginBottom: 18 }}>
