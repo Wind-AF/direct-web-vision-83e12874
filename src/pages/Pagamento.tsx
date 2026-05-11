@@ -419,8 +419,6 @@ const Pagamento = () => {
           Toque para assistir • Depoimentos reais
         </div>
 
-        <div style={{ marginBottom: 0 }}>
-
         <button
           type="button"
           onClick={openPix}
