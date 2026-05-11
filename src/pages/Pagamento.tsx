@@ -27,6 +27,8 @@ import cliente4 from "@/assets/cliente-4.jpeg";
 import cliente5 from "@/assets/cliente-5.jpeg";
 import depoimentoMulher from "@/assets/depoimento-mulher.mp4";
 import depoimentoHomem from "@/assets/depoimento-homem.mp4";
+import depoimentoMulherThumb from "@/assets/depoimento-mulher-thumb.jpg";
+import depoimentoHomemThumb from "@/assets/depoimento-homem-thumb.jpg";
 
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
@@ -437,8 +439,8 @@ const Pagamento = () => {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
           {[
-            { foto: cliente2, video: depoimentoMulher, label: "Recebeu via PIX" },
-            { foto: cliente4, video: depoimentoHomem, label: "Empréstimo aprovado" },
+            { foto: depoimentoMulherThumb, video: depoimentoMulher, label: "Recebeu via PIX" },
+            { foto: depoimentoHomemThumb, video: depoimentoHomem, label: "Empréstimo aprovado" },
           ].map((v) => (
             <DepoimentoVideo key={v.label} foto={v.foto} video={v.video} label={v.label} />
           ))}
