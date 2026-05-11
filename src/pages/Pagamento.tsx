@@ -117,6 +117,7 @@ const Pagamento = () => {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const valor = Number(params.get("valor") || 5000);
+  const parcelas = Number(params.get("parcelas") || 24);
   const nome = params.get("nome") || "";
   const primeiroNome = nome.trim().split(" ")[0]?.toUpperCase() || "CLIENTE";
   const seguro = useMemo(() => calcSeguro(valor), [valor]);
