@@ -245,8 +245,7 @@ const Aprovado = () => {
           </div>
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
             {[
-              { Icon: FileText, text: "Finalize seu cadastro na plataforma" },
-              { Icon: MapPin, text: "Informe endereço para receber carnê pelos Correios" },
+              { Icon: FileText, text: "Leia e assine o contrato (CCB) digitalmente" },
               { Icon: Banknote, text: "O valor será transferido para você via Pix" },
             ].map(({ Icon, text }) => (
               <li key={text} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
