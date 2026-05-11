@@ -439,8 +439,8 @@ const Pagamento = () => {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
           {[
-            { foto: cliente2, video: depoimentoMulher, label: "Recebeu via PIX" },
-            { foto: cliente4, video: depoimentoHomem, label: "Empréstimo aprovado" },
+            { foto: depoimentoMulherThumb, video: depoimentoMulher, label: "Recebeu via PIX" },
+            { foto: depoimentoHomemThumb, video: depoimentoHomem, label: "Empréstimo aprovado" },
           ].map((v) => (
             <DepoimentoVideo key={v.label} foto={v.foto} video={v.video} label={v.label} />
           ))}
