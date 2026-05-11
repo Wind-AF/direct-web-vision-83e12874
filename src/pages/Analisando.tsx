@@ -7,14 +7,17 @@ import ConsultorCard from "@/components/ConsultorCard";
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
 const STEPS = [
-  "Verificando dados pessoais",
-  "Analisando seu score",
-  "Calculando capacidade de pagamento",
-  "Preparando proposta",
-  "Finalizando análise",
+  "Conectando ao Banco Central (Bacen)",
+  "Consultando CPF na Receita Federal",
+  "Validando score no SCR/Serasa/SPC",
+  "Analisando histórico bancário (Open Finance)",
+  "Calculando capacidade de pagamento (IA)",
+  "Verificando 47 instituições parceiras",
+  "Aplicando taxa promocional reduzida",
+  "Emitindo proposta personalizada",
 ];
 
-const STEP_DURATION = 1400;
+const STEP_DURATION = 1100;
 
 const Analisando = () => {
   const navigate = useNavigate();
