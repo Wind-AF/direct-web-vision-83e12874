@@ -13,11 +13,13 @@ import {
   Star,
   CheckCircle2,
   Lock,
+  AlertTriangle,
+  Play,
 } from "lucide-react";
 import { useParadisePix } from "@/hooks/useParadisePix";
 import { trackEvent } from "@/lib/tracking";
+import { calcularParcelaMensal } from "@/lib/loanMath";
 import bancredLogo from "@/assets/bancred-logo.png";
-import stellanzLogo from "@/assets/stellanz-logo.svg";
 import cliente1 from "@/assets/cliente-1.jpeg";
 import cliente2 from "@/assets/cliente-2.jpeg";
 import cliente3 from "@/assets/cliente-3.jpeg";
