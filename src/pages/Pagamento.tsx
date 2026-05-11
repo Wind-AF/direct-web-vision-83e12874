@@ -25,6 +25,8 @@ import cliente2 from "@/assets/cliente-2.jpeg";
 import cliente3 from "@/assets/cliente-3.jpeg";
 import cliente4 from "@/assets/cliente-4.jpeg";
 import cliente5 from "@/assets/cliente-5.jpeg";
+import depoimentoMulher from "@/assets/depoimento-mulher.mp4";
+import depoimentoHomem from "@/assets/depoimento-homem.mp4";
 
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
