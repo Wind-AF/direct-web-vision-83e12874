@@ -255,7 +255,7 @@ const Index = () => {
           paddingTop: "calc(14px + env(safe-area-inset-top))",
         }}
       >
-        <img src={logo} alt="Bancred" style={{ height: 76, width: "auto", display: "inline-block", objectFit: "contain" }} />
+        <img src={logo} alt="Bancred" style={{ height: 104, width: "auto", display: "inline-block", objectFit: "contain" }} />
       </header>
 
       <main style={{ paddingBottom: 40 }}>

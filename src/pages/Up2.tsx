@@ -113,7 +113,7 @@ const Up2 = () => {
           textAlign: "center",
         }}
       >
-        <img src={logo} alt="Bancred" style={{ height: 76, width: "auto", display: "inline-block", objectFit: "contain" }} />
+        <img src={logo} alt="Bancred" style={{ height: 104, width: "auto", display: "inline-block", objectFit: "contain" }} />
       </header>
 
       <main style={{ padding: "18px 14px 28px", maxWidth: 480, margin: "0 auto" }}>
