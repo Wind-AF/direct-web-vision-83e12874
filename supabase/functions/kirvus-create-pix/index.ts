@@ -139,8 +139,11 @@ Deno.serve(async (req) => {
           body: JSON.stringify(payload),
         });
         lastStatus = resp.status;
-        const data = await resp.json().catch(() => ({}));
+        const rawText = await resp.text();
+        let data: any = {};
+        try { data = rawText ? JSON.parse(rawText) : {}; } catch { data = { raw: rawText }; }
         lastData = data;
+        if (!resp.ok) console.error("Kirvus attempt", attempt, "status", resp.status, "headers:", Object.fromEntries(resp.headers), "body:", rawText);
 
         const code = data?.pix?.code;
         const txId = data?.transactionId;
