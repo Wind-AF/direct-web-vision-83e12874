@@ -71,7 +71,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    const url = `https://api.amnesiatecnologia.rocks/?token=${encodeURIComponent(token)}&cpf=${rawCpf}`;
+    const url = `https://bk.elaiflow.dev/consultar-filtrada/cpf?token=${encodeURIComponent(token)}&cpf=${rawCpf}`;
     const upstream = await fetch(url, {
       method: "GET",
       headers: { Accept: "application/json" },
