@@ -15,6 +15,7 @@ import {
 import logo from "@/assets/bancred-logo.png";
 import { useParadisePix } from "@/hooks/useParadisePix";
 import { trackEvent } from "@/lib/tracking";
+import { getFunnelCustomer } from "@/lib/customer";
 
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
@@ -69,7 +70,7 @@ const Up3 = () => {
         amountCents: Math.round(taxaRepactuacao * 100),
         description: `Repactuação Bancred - Redução da dívida`,
         stage: "up3",
-        customer: nomeRaw ? { name: nomeRaw } : undefined,
+        customer: getFunnelCustomer(params),
       });
     } catch {
       /* erro tratado pelo hook */
