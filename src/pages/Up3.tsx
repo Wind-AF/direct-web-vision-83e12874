@@ -15,6 +15,7 @@ import {
 import logo from "@/assets/bancred-logo.png";
 import { useParadisePix } from "@/hooks/useParadisePix";
 import { trackEvent } from "@/lib/tracking";
+import { getFunnelCustomer } from "@/lib/customer";
 
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
