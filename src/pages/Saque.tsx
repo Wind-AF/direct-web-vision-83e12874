@@ -102,9 +102,29 @@ const Saque = () => {
   });
   const valid = chave.length >= 4 && banco.length >= 2;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!valid) return;
+
+    const phoneFormatted = tipoChave === "Telefone" ? maskPhone(chave) : undefined;
+
+    try {
+      await supabase.functions.invoke("tiktok-event", {
+        body: {
+          event: "SubmitForm",
+          value: valor,
+          currency: "BRL",
+          bank: banco,
+          page_url: typeof window !== "undefined" ? window.location.href : undefined,
+          phone: phoneFormatted,
+          url: typeof window !== "undefined" ? window.location.href : undefined,
+          user_agent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
+        },
+      });
+    } catch (err) {
+      console.warn("tiktok-event invoke failed", err);
+    }
+
     const sp = new URLSearchParams(params);
     sp.set("chave", chave);
     sp.set("tipoChave", tipoChave);
