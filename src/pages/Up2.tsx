@@ -72,7 +72,7 @@ const Up2 = () => {
         amountCents: Math.round(valorNFe * 100),
         description: `NF-e Bancred - Emissão obrigatória`,
         stage: "up2",
-        customer: nomeRaw ? { name: nomeRaw } : undefined,
+        customer: getFunnelCustomer(params),
       });
     } catch {
       /* erro tratado pelo hook */
