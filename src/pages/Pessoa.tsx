@@ -144,6 +144,17 @@ const Pessoa = () => {
     if (nomeParam) qs.set("nome", nomeParam);
     if (email) qs.set("email", email);
     if (phone) qs.set("telefone", phone);
+    try {
+      sessionStorage.setItem(
+        "bancred_customer",
+        JSON.stringify({
+          name: nomeParam || "",
+          email,
+          phone,
+          document: cpf,
+        }),
+      );
+    } catch { /* noop */ }
     navigate(`/oferta?${qs.toString()}`);
   };
 
