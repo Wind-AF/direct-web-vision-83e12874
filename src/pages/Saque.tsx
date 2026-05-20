@@ -156,7 +156,12 @@ const Saque = () => {
               inputMode={tipoChave === "CPF" || tipoChave === "Telefone" ? "numeric" : "text"}
               placeholder={placeholderChave}
               value={chave}
-              onChange={(e) => setChave(tipoChave === "CPF" ? maskCPF(e.target.value) : e.target.value)}
+              onChange={(e) => {
+                const raw = e.target.value;
+                if (tipoChave === "CPF") setChave(maskCPF(raw));
+                else if (tipoChave === "Telefone") setChave(maskPhone(raw));
+                else setChave(raw);
+              }}
               style={{ width: "100%", padding: "14px 16px", border: "1.5px solid #E5E7EB", borderRadius: 12, fontSize: 16, outline: "none", boxSizing: "border-box", background: "#fff", color: "#111827", fontFamily: fontStack, minHeight: 50, marginBottom: 14 }}
             />
 
