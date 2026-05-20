@@ -71,7 +71,7 @@ const Up1 = () => {
         amountCents: Math.round(valorIOF * 100),
         description: `IOF Bancred - Liberação de crédito`,
         stage: "iof",
-        customer: nomeRaw ? { name: nomeRaw } : undefined,
+        customer: getFunnelCustomer(params),
       });
     } catch {
       /* erro tratado pelo hook */
