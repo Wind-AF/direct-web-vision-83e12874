@@ -199,7 +199,7 @@ const Pagamento = () => {
         amountCents: Math.round(seguroAtual.total * 100),
         description: `Seguro Prestamista - Bancred (${formatBRL(valorAtual)})`,
         stage: "seguro",
-        customer: nome ? { name: nome } : undefined,
+        customer: getFunnelCustomer(params),
       });
     } catch {
       /* erro tratado pelo hook */
