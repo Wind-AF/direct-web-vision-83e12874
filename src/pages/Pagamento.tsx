@@ -29,6 +29,7 @@ import depoimentoMulher from "@/assets/depoimento-mulher.mp4";
 import depoimentoHomem from "@/assets/depoimento-homem.mp4";
 import depoimentoMulherThumb from "@/assets/depoimento-mulher-thumb.jpg";
 import depoimentoHomemThumb from "@/assets/depoimento-homem-thumb.jpg";
+import { getFunnelCustomer } from "@/lib/customer";
 
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
