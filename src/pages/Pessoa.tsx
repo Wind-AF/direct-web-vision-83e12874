@@ -142,6 +142,8 @@ const Pessoa = () => {
     const qs = new URLSearchParams();
     if (cpf) qs.set("cpf", cpf);
     if (nomeParam) qs.set("nome", nomeParam);
+    if (email) qs.set("email", email);
+    if (phone) qs.set("telefone", phone);
     navigate(`/oferta?${qs.toString()}`);
   };
 
