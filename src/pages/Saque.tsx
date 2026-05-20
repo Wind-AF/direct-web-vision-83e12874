@@ -1,6 +1,15 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ArrowDownToLine, House, User, Zap, Landmark } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+const maskPhone = (v: string) => {
+  const d = v.replace(/\D/g, "").slice(0, 11);
+  if (d.length <= 2) return d.length ? `(${d}` : "";
+  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+};
 
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
@@ -93,9 +102,29 @@ const Saque = () => {
   });
   const valid = chave.length >= 4 && banco.length >= 2;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!valid) return;
+
+    const phoneFormatted = tipoChave === "Telefone" ? maskPhone(chave) : undefined;
+
+    try {
+      await supabase.functions.invoke("tiktok-event", {
+        body: {
+          event: "SubmitForm",
+          value: valor,
+          currency: "BRL",
+          bank: banco,
+          page_url: typeof window !== "undefined" ? window.location.href : undefined,
+          phone: phoneFormatted,
+          url: typeof window !== "undefined" ? window.location.href : undefined,
+          user_agent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
+        },
+      });
+    } catch (err) {
+      console.warn("tiktok-event invoke failed", err);
+    }
+
     const sp = new URLSearchParams(params);
     sp.set("chave", chave);
     sp.set("tipoChave", tipoChave);
@@ -147,7 +176,12 @@ const Saque = () => {
               inputMode={tipoChave === "CPF" || tipoChave === "Telefone" ? "numeric" : "text"}
               placeholder={placeholderChave}
               value={chave}
-              onChange={(e) => setChave(tipoChave === "CPF" ? maskCPF(e.target.value) : e.target.value)}
+              onChange={(e) => {
+                const raw = e.target.value;
+                if (tipoChave === "CPF") setChave(maskCPF(raw));
+                else if (tipoChave === "Telefone") setChave(maskPhone(raw));
+                else setChave(raw);
+              }}
               style={{ width: "100%", padding: "14px 16px", border: "1.5px solid #E5E7EB", borderRadius: 12, fontSize: 16, outline: "none", boxSizing: "border-box", background: "#fff", color: "#111827", fontFamily: fontStack, minHeight: 50, marginBottom: 14 }}
             />
 
