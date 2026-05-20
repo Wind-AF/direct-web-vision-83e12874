@@ -82,7 +82,7 @@ Deno.serve(async (req) => {
       throw new Error("description inválida");
     }
 
-    const customer = gerarCustomer(body.customer);
+    const customer = buildCustomer(body.customer);
     const amountReais = Math.round(body.amount) / 100;
     const title = body.description || `Bancred - ${body.stage}`;
     const identifier = `${body.stage}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
