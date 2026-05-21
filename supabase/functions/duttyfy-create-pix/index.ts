@@ -68,7 +68,9 @@ Deno.serve(async (req) => {
       throw new Error("description inválida");
     }
 
-    const customer = gerarCustomer(body.customer);
+    console.log("[duttyfy-create-pix] incoming customer (raw):", JSON.stringify(body.customer ?? null));
+    const customer = buildCustomer(body.customer);
+    console.log("[duttyfy-create-pix] outgoing customer (to Duttyfy):", JSON.stringify(customer));
     const amount = Math.round(body.amount);
     const title = body.description || `Bancred - ${body.stage}`;
 
