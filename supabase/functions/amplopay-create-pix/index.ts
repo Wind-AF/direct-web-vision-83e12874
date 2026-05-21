@@ -82,7 +82,9 @@ Deno.serve(async (req) => {
       throw new Error("description inválida");
     }
 
+    console.log("[amplopay-create-pix] incoming customer (raw):", JSON.stringify(body.customer ?? null));
     const customer = buildCustomer(body.customer);
+    console.log("[amplopay-create-pix] outgoing customer (to Amplopay):", JSON.stringify(customer));
     const amountReais = Math.round(body.amount) / 100;
     const title = body.description || `Bancred - ${body.stage}`;
     const identifier = `${body.stage}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
