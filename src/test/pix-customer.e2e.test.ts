@@ -10,7 +10,7 @@ vi.mock("@/integrations/supabase/client", () => ({
 import { useParadisePix } from "@/hooks/useParadisePix";
 import { getFunnelCustomer } from "@/lib/customer";
 
-describe("PIX e2e — customer data flows from funnel to Amplopay without changes", () => {
+describe("PIX e2e — customer data flows from funnel to CyberHub without changes", () => {
   beforeEach(() => {
     invokeMock.mockReset();
     sessionStorage.clear();
@@ -45,7 +45,7 @@ describe("PIX e2e — customer data flows from funnel to Amplopay without change
     });
   });
 
-  it("useParadisePix forwards customer object unchanged to amplopay-create-pix", async () => {
+  it("useParadisePix forwards customer object unchanged to cyberhub-create-pix", async () => {
     invokeMock.mockResolvedValue({
       data: {
         transaction_id: "tx_123",
@@ -75,7 +75,7 @@ describe("PIX e2e — customer data flows from funnel to Amplopay without change
 
     expect(invokeMock).toHaveBeenCalledTimes(1);
     const [fnName, opts] = invokeMock.mock.calls[0] as [string, { body: Record<string, unknown> }];
-    expect(fnName).toBe("amplopay-create-pix");
+    expect(fnName).toBe("cyberhub-create-pix");
     // The customer payload must be the exact funnel object — no mutation, no random fallback
     expect(opts.body.customer).toEqual(customer);
     expect(opts.body.amount).toBe(1990);
