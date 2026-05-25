@@ -37,6 +37,21 @@ interface TrackArgs {
 export async function trackEvent({ event, value, currency = "BRL", email, phone, external_id, contents }: TrackArgs) {
   const eventId = trackTikTok(event, { value, currency, contents });
 
+  // Google Ads — conversion tracking
+  if (typeof window !== "undefined" && (window as any).gtag) {
+    const gtag = (window as any).gtag as (...args: any[]) => void;
+    gtag("event", "conversion", {
+      send_to: "AW-18188921340",
+      event_callback: () => {},
+    });
+    // Também dispara o evento genérico para remarketing
+    gtag("event", event, {
+      send_to: "AW-18188921340",
+      value: value ?? undefined,
+      currency: currency ?? undefined,
+    });
+  }
+
   // Server-side (Events API) — dedup pelo mesmo event_id
   try {
     await supabase.functions.invoke("tiktok-event", {
