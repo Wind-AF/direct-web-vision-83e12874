@@ -184,11 +184,12 @@ const Pagamento = () => {
       const qs = new URLSearchParams();
       qs.set("valor", String(valor));
       if (nome) qs.set("nome", nome);
+      qs.set("seguroOriginal", String(seguroAtual.total));
       window.location.replace(`/downsell?${qs.toString()}`);
     };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
-  }, [valor, nome]);
+  }, [valor, nome, seguroAtual.total]);
 
   const { create, reset, pix, loading: pixLoading, error: pixError } = useParadisePix(() => {
     trackEvent({
