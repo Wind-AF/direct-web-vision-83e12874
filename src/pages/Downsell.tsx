@@ -429,7 +429,7 @@ const Downsell = () => {
           {[
             {
               nome: "Mariana Souza",
-              texto: `...quando voltei apareceu por 17. Paguei e o meu pix de ${formatBRL(valorSaque)} caiu na hora! Valeu a pena demais kkkk`,
+              texto: `...quando voltei apareceu por ${formatBRL(valorDesconto).replace("R$ ", "")}. Paguei e o meu pix de ${formatBRL(valorSaque)} caiu na hora! Valeu a pena demais kkkk`,
             },
             {
               nome: "Carlos Henrique",
