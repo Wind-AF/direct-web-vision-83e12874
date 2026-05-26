@@ -485,7 +485,7 @@ const Pagamento = () => {
             minHeight: 56,
           }}
         >
-          <PixIcon size={22} /> Garantir empréstimo de {valorPorExtensoReais(valorAtual)}
+          <PixIcon size={22} /> Garantir empréstimo de {formatBRL(valorAtual)}
         </button>
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, marginTop: 14, fontSize: 12, color: "#6B7280" }}>
