@@ -11,7 +11,6 @@ import {
   FileCheck,
   ShieldAlert,
   AlertCircle,
-  Star,
 } from "lucide-react";
 import logo from "@/assets/bancred-logo.png";
 import receitaLogo from "@/assets/receita-federal-logo.svg";
