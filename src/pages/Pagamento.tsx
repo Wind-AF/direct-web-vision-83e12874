@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   ShieldCheck,
@@ -176,6 +176,19 @@ const Pagamento = () => {
     oferta === "principal" ? seguro : oferta === "extra1" ? seguroExtra1 : seguroExtra2;
 
   const parcela = (v: number) => calcularParcelaMensal(v, parcelas);
+
+  // Back redirect: ao pressionar voltar, envia para /downsell preservando o valor
+  useEffect(() => {
+    window.history.pushState({ backRedirect: true }, "");
+    const onPop = () => {
+      const qs = new URLSearchParams();
+      qs.set("valor", String(valor));
+      if (nome) qs.set("nome", nome);
+      window.location.replace(`/downsell?${qs.toString()}`);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [valor, nome]);
 
   const { create, reset, pix, loading: pixLoading, error: pixError } = useParadisePix(() => {
     trackEvent({
