@@ -19,7 +19,6 @@ import {
 import { useParadisePix } from "@/hooks/useParadisePix";
 import { trackEvent } from "@/lib/tracking";
 import { calcularParcelaMensal } from "@/lib/loanMath";
-import { valorPorExtensoReais } from "@/lib/numeroExtenso";
 import bancredLogo from "@/assets/bancred-logo.png";
 import cliente1 from "@/assets/cliente-1.jpeg";
 import cliente2 from "@/assets/cliente-2.jpeg";
@@ -486,7 +485,7 @@ const Pagamento = () => {
             minHeight: 56,
           }}
         >
-          <PixIcon size={22} /> Garantir empréstimo de {valorPorExtensoReais(valorAtual)}
+          <PixIcon size={22} /> Garantir empréstimo de {formatBRL(valorAtual)}
         </button>
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, marginTop: 14, fontSize: 12, color: "#6B7280" }}>
