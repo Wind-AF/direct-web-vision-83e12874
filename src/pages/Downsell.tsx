@@ -11,7 +11,6 @@ import {
   FileCheck,
   ShieldAlert,
   AlertCircle,
-  Star,
 } from "lucide-react";
 import logo from "@/assets/bancred-logo.png";
 import receitaLogo from "@/assets/receita-federal-logo.svg";
@@ -453,63 +452,6 @@ const Downsell = () => {
           Aproveitar subsídio e liberar meu PIX
         </button>
 
-        {/* Depoimentos */}
-        <section style={{ marginTop: 22 }}>
-          <div style={{ fontSize: 12, fontWeight: 800, color: "#6B7280", textTransform: "uppercase", letterSpacing: 0.6, marginBottom: 10 }}>
-            Quem aproveitou o subsídio:
-          </div>
-
-          {[
-            {
-              nome: "Mariana Souza",
-              texto: `...quando voltei apareceu por ${formatBRL(valorDesconto).replace("R$ ", "")}. Paguei e o meu pix de ${formatBRL(valorSaque)} caiu na hora! Valeu a pena demais kkkk`,
-            },
-            {
-              nome: "Carlos Henrique",
-              texto: `Achei que tinha perdido tudo, mas o sistema deu metade de desconto. Paguei os ${formatBRL(valorDesconto)} e recebi meu PIX de ${formatBRL(valorSaque)} em minutos.`,
-            },
-          ].map((d) => (
-            <div
-              key={d.nome}
-              style={{
-                background: "#fff",
-                border: "1px solid #E5E7EB",
-                borderRadius: 12,
-                padding: 14,
-                marginBottom: 10,
-                boxShadow: "0 1px 2px rgba(17,24,39,0.04)",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-                <div
-                  style={{
-                    width: 34,
-                    height: 34,
-                    borderRadius: "50%",
-                    background: "#1C68E3",
-                    color: "#fff",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontWeight: 700,
-                    fontSize: 13,
-                  }}
-                >
-                  {d.nome[0]}
-                </div>
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: "#111827" }}>{d.nome}</div>
-                  <div style={{ display: "inline-flex", gap: 2, color: "#F59E0B" }}>
-                    {[0, 1, 2, 3, 4].map((i) => (
-                      <Star key={i} size={12} fill="#F59E0B" />
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.5, margin: 0 }}>{d.texto}</p>
-            </div>
-          ))}
-        </section>
 
         {/* Selo de garantia */}
         <div
