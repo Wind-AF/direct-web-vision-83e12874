@@ -36,8 +36,8 @@ const Downsell = () => {
     return ls && !Number.isNaN(ls) && ls > 0 ? ls : 5000;
   }, [params]);
 
-  const valorOriginal = 34;
-  const valorDesconto = 17;
+  const valorOriginal = 34.42;
+  const valorDesconto = 17.21;
 
   // Cronômetro 04:59
   const [secs, setSecs] = useState(4 * 60 + 59);
