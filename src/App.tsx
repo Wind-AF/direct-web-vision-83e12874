@@ -20,6 +20,7 @@ import SaqueConfirmar from "./pages/SaqueConfirmar.tsx";
 import Garantia from "./pages/Garantia.tsx";
 import Agendamento from "./pages/Agendamento.tsx";
 import Pagamento from "./pages/Pagamento.tsx";
+import Downsell from "./pages/Downsell.tsx";
 import Up1 from "./pages/Up1.tsx";
 import Up2 from "./pages/Up2.tsx";
 import Up3 from "./pages/Up3.tsx";
@@ -50,6 +51,7 @@ const App = () => (
           <Route path="/garantia" element={<Garantia />} />
           <Route path="/agendamento" element={<Agendamento />} />
           <Route path="/pagamento" element={<Pagamento />} />
+          <Route path="/downsell" element={<Downsell />} />
           <Route path="/up1" element={<Up1 />} />
           <Route path="/up2" element={<Up2 />} />
           <Route path="/up3" element={<Up3 />} />
