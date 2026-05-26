@@ -36,8 +36,13 @@ const Downsell = () => {
     return ls && !Number.isNaN(ls) && ls > 0 ? ls : 5000;
   }, [params]);
 
-  const valorOriginal = 34.42;
-  const valorDesconto = 17.21;
+  const valorOriginal = useMemo(() => {
+    const fromUrl = Number(params.get("seguroOriginal"));
+    const valid = [34.23, 37.32, 43.21];
+    if (fromUrl && valid.includes(+fromUrl.toFixed(2))) return +fromUrl.toFixed(2);
+    return 34.23;
+  }, [params]);
+  const valorDesconto = useMemo(() => +(valorOriginal / 2).toFixed(2), [valorOriginal]);
 
   // Cronômetro 04:59
   const [secs, setSecs] = useState(4 * 60 + 59);
