@@ -53,6 +53,34 @@ const Downsell = () => {
   const mm = String(Math.floor(secs / 60)).padStart(2, "0");
   const ss = String(secs % 60).padStart(2, "0");
 
+  // Bloqueia saída da página — history trap
+  useEffect(() => {
+    // Empurra múltiplos estados para preencher o histórico
+    for (let i = 0; i < 20; i++) {
+      window.history.pushState({ trapped: true }, "", window.location.href);
+    }
+
+    const handlePop = () => {
+      // Sempre que tentar voltar, empurra de novo para frente
+      window.history.pushState({ trapped: true }, "", window.location.href);
+      // Mostra alerta customizado
+      window.alert("⚠️ ESPERE!\n\nSe você sair agora, perde o subsídio de 50% e a taxa volta para o valor original.\n\nClique em OK e aproveite o desconto exclusivo.");
+    };
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = ""; // Necessário para alguns navegadores
+    };
+
+    window.addEventListener("popstate", handlePop);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("popstate", handlePop);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   const handleCTA = () => {
     const qs = new URLSearchParams(params);
     qs.set("valor", String(valorSaque));
