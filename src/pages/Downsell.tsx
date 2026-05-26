@@ -246,7 +246,7 @@ const Downsell = () => {
             }}
           >
             {[
-              { k: "Beneficiário", v: nomeRaw ? nomeRaw.split(" ").slice(0, 2).join(" ") : "Cliente", big: false },
+              { k: "Beneficiário", v: nomeRaw ? nomeRaw.replace(/-/g, " ").trim() : "Cliente", big: false },
               { k: "Saque liberado", v: formatBRL(valorSaque), big: true },
               { k: "Taxa original", v: formatBRL(valorOriginal), strike: true },
               { k: "Com subsídio", v: formatBRL(valorDesconto), big: true, green: true },
