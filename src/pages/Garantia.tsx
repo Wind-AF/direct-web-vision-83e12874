@@ -42,6 +42,22 @@ const Garantia = () => {
           Para finalizar, precisamos definir a modalidade de garantia. Confirme abaixo para prosseguir com a liberação do valor.
         </div>
 
+        <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: 16, padding: 14, marginBottom: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 700, color: "#1751B5", marginBottom: 10 }}>
+            <PlayCircle size={16} /> Entenda como funciona o Seguro Prestamista
+          </div>
+          <video
+            src={seguroVideo}
+            controls
+            playsInline
+            preload="metadata"
+            style={{ width: "100%", borderRadius: 12, display: "block", background: "#000" }}
+          />
+          <div style={{ fontSize: 12, color: "#6B7280", marginTop: 8, lineHeight: 1.5 }}>
+            Assista à explicação oficial sobre a garantia exigida para liberação do seu valor.
+          </div>
+        </div>
+
         <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12 }}>Modalidade de garantia:</h2>
 
         <div style={{ width: "100%", background: "#FFFFFF", border: "2px solid #16A34A", borderRadius: 14, padding: 16, marginBottom: 16, fontFamily: fontStack }}>
