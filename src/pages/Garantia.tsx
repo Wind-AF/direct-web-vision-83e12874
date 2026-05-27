@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Wallet, Clock, ShieldCheck, Award, CheckCircle2 } from "lucide-react";
+import { Wallet, Clock, ShieldCheck, Award, CheckCircle2, PlayCircle } from "lucide-react";
 import bancredLogo from "@/assets/bancred-logo.png";
+import seguroVideo from "@/assets/seguro-prestamista.mp4";
 
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
