@@ -531,12 +531,6 @@ const Pagamento = () => {
           </div>
         </div>
 
-        {/* Ofertas extras */}
-        <h2 style={{ fontSize: 15, fontWeight: 700, marginBottom: 12 }}>
-          Temos mais 2 ofertas aprovadas pra seu CPF:
-        </h2>
-        <OfferRow id="extra1" valorEmp={valorOfertaExtra1} seg={seguroExtra1} />
-        <OfferRow id="extra2" valorEmp={valorOfertaExtra2} seg={seguroExtra2} />
 
         {/* Valor a pagar destacado */}
         <div style={{ textAlign: "center", marginTop: 24, marginBottom: 14 }}>
