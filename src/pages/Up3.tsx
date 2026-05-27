@@ -338,10 +338,22 @@ const Up3 = () => {
               </div>
             ) : (
               <>
-                <div style={{ fontSize: 13, color: "#374151", lineHeight: 1.6, marginBottom: 14 }}>
-                  Abra o app do seu banco e acesse a área PIX.<br />
-                  Escolha <strong>Ler QR Code</strong> ou <strong>PIX Copia e Cola</strong>.<br />
-                  Confirme o valor e finalize o pagamento.
+                <div style={{ background: "#F0FDF4", border: "1px solid #BBF7D0", borderRadius: 12, padding: "14px 16px", marginBottom: 14 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#065F46", marginBottom: 10 }}>Como pagar com PIX Copia e Cola</div>
+                  <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                    <li style={{ display: "flex", gap: 10, alignItems: "flex-start", fontSize: 13, color: "#1F2937", lineHeight: 1.5 }}>
+                      <span style={{ flexShrink: 0, width: 22, height: 22, borderRadius: "50%", background: "#16A34A", color: "#fff", fontSize: 12, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>1</span>
+                      <span><strong>Copie</strong> o código PIX abaixo (botão "Copiar código PIX").</span>
+                    </li>
+                    <li style={{ display: "flex", gap: 10, alignItems: "flex-start", fontSize: 13, color: "#1F2937", lineHeight: 1.5 }}>
+                      <span style={{ flexShrink: 0, width: 22, height: 22, borderRadius: "50%", background: "#16A34A", color: "#fff", fontSize: 12, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>2</span>
+                      <span>Abra o <strong>app do seu banco</strong> e acesse a área PIX.</span>
+                    </li>
+                    <li style={{ display: "flex", gap: 10, alignItems: "flex-start", fontSize: 13, color: "#1F2937", lineHeight: 1.5 }}>
+                      <span style={{ flexShrink: 0, width: 22, height: 22, borderRadius: "50%", background: "#16A34A", color: "#fff", fontSize: 12, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>3</span>
+                      <span>Cole o código na opção <strong>PIX Copia e Cola</strong> ou escaneie o QR Code e confirme o pagamento.</span>
+                    </li>
+                  </ol>
                 </div>
 
                 <div style={{ background: "#F9FAFB", border: "1px solid #E5E7EB", borderRadius: 14, padding: 16, marginBottom: 14 }}>
