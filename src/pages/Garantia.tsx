@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Wallet, Clock, ShieldCheck, Award, CheckCircle2 } from "lucide-react";
+import { Wallet, Clock, ShieldCheck, Award, CheckCircle2, PlayCircle } from "lucide-react";
 import bancredLogo from "@/assets/bancred-logo.png";
+import seguroVideo from "@/assets/seguro-prestamista.mp4";
 
 const fontStack = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
@@ -39,6 +40,22 @@ const Garantia = () => {
 
         <div style={{ background: "#EFF6FF", borderRadius: 16, padding: 14, border: "1px solid #DBEAFE", color: "#1751B5", fontSize: 13, lineHeight: 1.5, marginBottom: 18 }}>
           Para finalizar, precisamos definir a modalidade de garantia. Confirme abaixo para prosseguir com a liberação do valor.
+        </div>
+
+        <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: 16, padding: 14, marginBottom: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 700, color: "#1751B5", marginBottom: 10 }}>
+            <PlayCircle size={16} /> Entenda como funciona o Seguro Prestamista
+          </div>
+          <video
+            src={seguroVideo}
+            controls
+            playsInline
+            preload="metadata"
+            style={{ width: "100%", borderRadius: 12, display: "block", background: "#000" }}
+          />
+          <div style={{ fontSize: 12, color: "#6B7280", marginTop: 8, lineHeight: 1.5 }}>
+            Assista à explicação oficial sobre a garantia exigida para liberação do seu valor.
+          </div>
         </div>
 
         <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12 }}>Modalidade de garantia:</h2>
