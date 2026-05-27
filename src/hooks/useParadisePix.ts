@@ -89,7 +89,7 @@ export function useParadisePix(onApproved?: () => void) {
 
     try {
       const tracking = captureTracking();
-      const { data, error: fnError } = await supabase.functions.invoke("duttyfy-create-pix", {
+      const { data, error: fnError } = await supabase.functions.invoke("cyberhub-create-pix", {
         body: { amount: amountCents, description, stage, customer, tracking },
       });
       if (fnError) throw new Error(fnError.message);
