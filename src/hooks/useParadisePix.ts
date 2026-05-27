@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import QRCode from "qrcode";
 
-type Stage = "seguro" | "iof" | "up2" | "up3";
+type Stage = "seguro" | "iof" | "up2" | "up3" | "up4" | "up5";
 
 export interface PixData {
   transaction_id: string | number;

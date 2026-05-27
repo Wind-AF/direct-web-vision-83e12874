@@ -54,7 +54,7 @@ const Up3 = () => {
       currency: "BRL",
       contents: [{ content_id: "repactuacao", content_name: "Repactuação", quantity: 1, price: taxaRepactuacao }],
     });
-    navigate(`/dashboard?${params.toString()}`);
+    navigate(`/up4?${params.toString()}`);
   });
 
   const openPix = async () => {
