@@ -52,31 +52,57 @@ const Downsell = () => {
   const mm = String(Math.floor(secs / 60)).padStart(2, "0");
   const ss = String(secs % 60).padStart(2, "0");
 
-  // Bloqueia saída da página — history trap
+  // Trava TOTAL — não sai dessa página de jeito nenhum
   useEffect(() => {
-    // Empurra múltiplos estados para preencher o histórico
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 100; i++) {
       window.history.pushState({ trapped: true }, "", window.location.href);
     }
 
     const handlePop = () => {
-      // Sempre que tentar voltar, empurra de novo para frente
       window.history.pushState({ trapped: true }, "", window.location.href);
-      // Mostra alerta customizado
-      window.alert("⚠️ ESPERE!\n\nSe você sair agora, perde o subsídio de 50% e a taxa volta para o valor original.\n\nClique em OK e aproveite o desconto exclusivo.");
+      window.history.pushState({ trapped: true }, "", window.location.href);
     };
 
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();
-      e.returnValue = ""; // Necessário para alguns navegadores
+      e.returnValue = "Se você sair agora, perde o subsídio de 50% e a taxa volta ao valor original.";
+      return "Se você sair agora, perde o subsídio de 50% e a taxa volta ao valor original.";
     };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement;
+      const tag = t?.tagName?.toLowerCase();
+      const editable = tag === "input" || tag === "textarea" || t?.isContentEditable;
+      if (e.key === "Backspace" && !editable) {
+        e.preventDefault();
+      }
+      if (
+        e.key === "F5" ||
+        ((e.ctrlKey || e.metaKey) && ["r", "R", "w", "W"].includes(e.key)) ||
+        (e.altKey && (e.key === "ArrowLeft" || e.key === "ArrowRight"))
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    const handleContextMenu = (e: MouseEvent) => e.preventDefault();
 
     window.addEventListener("popstate", handlePop);
     window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("keydown", handleKeyDown, true);
+    window.addEventListener("contextmenu", handleContextMenu);
+
+    const interval = setInterval(() => {
+      window.history.pushState({ trapped: true }, "", window.location.href);
+    }, 500);
 
     return () => {
       window.removeEventListener("popstate", handlePop);
       window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("keydown", handleKeyDown, true);
+      window.removeEventListener("contextmenu", handleContextMenu);
+      clearInterval(interval);
     };
   }, []);
 
