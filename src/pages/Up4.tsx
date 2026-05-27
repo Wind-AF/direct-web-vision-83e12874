@@ -13,6 +13,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import logo from "@/assets/bancred-logo.png";
+import govbrLogo from "@/assets/govbr-logo.png";
+import receitaLogo from "@/assets/receita-federal-logo.svg";
 import { useParadisePix } from "@/hooks/useParadisePix";
 import { trackEvent } from "@/lib/tracking";
 import { getFunnelCustomer } from "@/lib/customer";
