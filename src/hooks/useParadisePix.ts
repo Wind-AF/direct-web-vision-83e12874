@@ -112,7 +112,7 @@ export function useParadisePix(onApproved?: () => void) {
       pollRef.current = window.setInterval(async () => {
         try {
           const r = await fetch(
-            `${projectUrl}/functions/v1/duttyfy-check-status?transaction_id=${encodeURIComponent(String(pixData.transaction_id))}`,
+            `${projectUrl}/functions/v1/cyberhub-check-status?transaction_id=${encodeURIComponent(String(pixData.transaction_id))}`,
             { headers: { Authorization: `Bearer ${anonKey}`, apikey: anonKey } },
           );
           const j = await r.json();
