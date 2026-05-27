@@ -24,6 +24,8 @@ import Downsell from "./pages/Downsell.tsx";
 import Up1 from "./pages/Up1.tsx";
 import Up2 from "./pages/Up2.tsx";
 import Up3 from "./pages/Up3.tsx";
+import Up4 from "./pages/Up4.tsx";
+import Up5 from "./pages/Up5.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
