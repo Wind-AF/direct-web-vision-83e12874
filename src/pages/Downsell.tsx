@@ -678,6 +678,192 @@ const Downsell = () => {
           </div>
         </footer>
       </main>
+
+      {showPix && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(15,23,42,0.55)",
+            backdropFilter: "blur(2px)",
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "center",
+            zIndex: 60,
+          }}
+          onClick={closePix}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "#fff",
+              width: "100%",
+              maxWidth: 480,
+              borderTopLeftRadius: 22,
+              borderTopRightRadius: 22,
+              padding: "14px 18px 24px",
+              maxHeight: "92dvh",
+              overflowY: "auto",
+              fontFamily: fontStack,
+            }}
+          >
+            <div style={{ width: 44, height: 4, background: "#E5E7EB", borderRadius: 2, margin: "0 auto 14px" }} />
+
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ background: "#32BCAD", borderRadius: 8, padding: 4, display: "inline-flex" }}>
+                  <PixIcon size={18} />
+                </span>
+                <span style={{ fontSize: 18, fontWeight: 700 }}>Pagar com PIX</span>
+              </div>
+              <button
+                type="button"
+                onClick={closePix}
+                aria-label="Fechar"
+                style={{ background: "transparent", border: "none", cursor: "pointer", color: "#6B7280" }}
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            <div
+              style={{
+                background: "#F0FDF4",
+                border: "1px solid #DCFCE7",
+                borderRadius: 14,
+                padding: "12px 14px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 18,
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 12, color: "#15803D", fontWeight: 600 }}>Valor a pagar (com subsídio)</div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: "#16A34A", letterSpacing: -0.4 }}>
+                  {formatBRL(valorDesconto)}
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  background: "#fff",
+                  border: "1px solid #DCFCE7",
+                  color: "#15803D",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  padding: "6px 10px",
+                  borderRadius: 999,
+                }}
+              >
+                <Clock size={12} /> expira em 15min
+              </div>
+            </div>
+
+            {pixLoading || !pix ? (
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "40px 0" }}>
+                <Loader2 size={42} color="#1C68E3" style={{ animation: "spin 1s linear infinite" }} />
+                <div style={{ marginTop: 18, color: "#6B7280", fontSize: 14 }}>
+                  {pixError ? pixError : "Gerando seu código PIX..."}
+                </div>
+                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+              </div>
+            ) : (
+              <>
+                <div style={{ fontSize: 13, color: "#374151", lineHeight: 1.6, marginBottom: 14 }}>
+                  Abra o app do seu banco e acesse a área PIX.<br />
+                  Escolha <strong>Ler QR Code</strong> ou <strong>PIX Copia e Cola</strong>.<br />
+                  Confirme o valor e finalize o pagamento.
+                </div>
+
+                <div style={{ background: "#F9FAFB", border: "1px solid #E5E7EB", borderRadius: 14, padding: 16, marginBottom: 14 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, color: "#374151", fontSize: 13, fontWeight: 600, marginBottom: 12 }}>
+                    <QrCode size={14} /> Escaneie o QR Code
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <img
+                      src={pix.qr_image}
+                      alt="QR Code PIX"
+                      width={240}
+                      height={240}
+                      style={{ display: "block", background: "#fff", padding: 8, borderRadius: 8 }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ fontSize: 13, fontWeight: 600, color: "#111827", marginBottom: 6 }}>Ou use o PIX Copia e Cola:</div>
+                <div
+                  style={{
+                    background: "#F9FAFB",
+                    border: "1px solid #E5E7EB",
+                    borderRadius: 12,
+                    padding: 12,
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+                    fontSize: 12,
+                    color: "#111827",
+                    wordBreak: "break-all",
+                    lineHeight: 1.5,
+                    marginBottom: 12,
+                  }}
+                >
+                  {pix.qr_code}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  style={{
+                    width: "100%",
+                    padding: "14px 18px",
+                    background: copied ? "#16A34A" : "#1C68E3",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: 12,
+                    fontSize: 15,
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 8,
+                    fontFamily: fontStack,
+                    minHeight: 50,
+                  }}
+                >
+                  {copied ? <Check size={18} /> : <Copy size={18} />} {copied ? "Copiado!" : "Copiar código PIX"}
+                </button>
+
+                <div
+                  style={{
+                    marginTop: 12,
+                    background: "#EFF6FF",
+                    border: "1px solid #DBEAFE",
+                    borderRadius: 12,
+                    padding: "12px 14px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    color: "#1751B5",
+                    fontSize: 13,
+                  }}
+                >
+                  <Loader2 size={16} style={{ animation: "spin 1.4s linear infinite", flexShrink: 0 }} />
+                  Aguardando confirmação do pagamento...
+                </div>
+
+                <div style={{ marginTop: 14, fontSize: 11.5, color: "#6B7280", textAlign: "center", lineHeight: 1.55, display: "inline-flex", alignItems: "flex-start", gap: 6 }}>
+                  <Wallet size={12} style={{ marginTop: 2, flexShrink: 0 }} />
+                  <span>
+                    Após o pagamento, o valor é liberado automaticamente. Pagamento processado com criptografia ponta a ponta.
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
