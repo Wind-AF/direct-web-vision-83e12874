@@ -1,5 +1,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Wallet, Clock, ShieldCheck, Award, CheckCircle2, PlayCircle } from "lucide-react";
+import { useRef, useState } from "react";
+import { Wallet, Clock, ShieldCheck, Award, CheckCircle2, PlayCircle, Play, Pause } from "lucide-react";
 import bancredLogo from "@/assets/bancred-logo.png";
 import seguroVideo from "@/assets/seguro-prestamista.mp4";
 
@@ -12,6 +13,23 @@ const Garantia = () => {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const valor = Number(params.get("valor") || 5000);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [showOverlay, setShowOverlay] = useState(false);
+
+  const togglePlay = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      setIsPlaying(true);
+      setShowOverlay(false);
+    } else {
+      v.pause();
+      setIsPlaying(false);
+      setShowOverlay(true);
+    }
+  };
 
   const handleContinue = () => {
     navigate(`/pagamento?${params.toString()}`);
