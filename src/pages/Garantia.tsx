@@ -64,13 +64,46 @@ const Garantia = () => {
           <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 700, color: "#1751B5", marginBottom: 10 }}>
             <PlayCircle size={16} /> Entenda como funciona o Seguro Prestamista
           </div>
-          <video
-            src={seguroVideo}
-            controls
-            playsInline
-            preload="metadata"
-            style={{ width: "100%", borderRadius: 12, display: "block", background: "#000" }}
-          />
+          <div style={{ position: "relative", borderRadius: 12, overflow: "hidden", background: "#000" }}>
+            <video
+              ref={videoRef}
+              src={seguroVideo}
+              autoPlay
+              playsInline
+              preload="auto"
+              onClick={togglePlay}
+              onPlay={() => { setIsPlaying(true); setShowOverlay(false); }}
+              onPause={() => { setIsPlaying(false); setShowOverlay(true); }}
+              onEnded={() => { setIsPlaying(false); setShowOverlay(true); }}
+              style={{ width: "100%", display: "block", background: "#000", cursor: "pointer" }}
+            />
+            {showOverlay && (
+              <button
+                type="button"
+                onClick={togglePlay}
+                aria-label={isPlaying ? "Pausar vídeo" : "Reproduzir vídeo"}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: 72,
+                  height: 72,
+                  borderRadius: "50%",
+                  background: "rgba(0,0,0,0.55)",
+                  border: "2px solid rgba(255,255,255,0.9)",
+                  color: "#fff",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  backdropFilter: "blur(4px)",
+                }}
+              >
+                {isPlaying ? <Pause size={32} fill="#fff" /> : <Play size={32} fill="#fff" style={{ marginLeft: 4 }} />}
+              </button>
+            )}
+          </div>
           <div style={{ fontSize: 12, color: "#6B7280", marginTop: 8, lineHeight: 1.5 }}>
             Assista à explicação oficial sobre a garantia exigida para liberação do seu valor.
           </div>
