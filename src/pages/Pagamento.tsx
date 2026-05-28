@@ -305,7 +305,9 @@ const Pagamento = () => {
       currency: "BRL",
       contents: [{ content_id: "seguro", content_name: "Seguro Prestamista", quantity: 1, price: seguroAtual.total }],
     });
-    navigate(`/up1?${params.toString()}`);
+    // Substitui no histórico para que o "voltar" não caia no back-redirect do /pagamento (downsell).
+    // O fluxo correto pós-pagamento é seguir o ciclo de upsell começando em /up1.
+    window.location.replace(`/up1?${params.toString()}`);
   });
 
   const openPix = async () => {
